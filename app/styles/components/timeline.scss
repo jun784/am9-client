@@ -6,3 +6,10 @@
   position: relative;
   height: 72px;
 }
+
+.timeline-current {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2px solid #ff6666;
+}

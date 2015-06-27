@@ -10,6 +10,7 @@ var timeline = new Vue({
     time: 1000 * 60 * 60 * 24,
     step: 1000 * 60 * 15,
     stepLength: 18,
+    currentTime: new Date().getTime(),
 
     resources: null
   },
@@ -18,11 +19,19 @@ var timeline = new Vue({
     stores.timeline.on('fetch', (data) => {
       this.refresh(data);
     });
+
+    stores.timeline.on('updateCurrentTime', (current) => {
+      this.currentTime = current.getTime();
+    });
   },
 
   computed: {
     height: function() {
       return this.time / this.step * this.stepLength;
+    },
+
+    currentTop: function() {
+      return (this.currentTime - this.start) / this.time * this.height;
     }
   },
 

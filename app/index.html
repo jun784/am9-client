@@ -58,6 +58,7 @@
         </ul>
         <article id="timeline" class="timeline">
           <resource v-repeat="resource: resources"></resource>
+          <div class="timeline-current" v-style="{ top: currentTop + 'px' }"></div>
         </article>
       </div>
     </div>

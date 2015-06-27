@@ -6,6 +6,12 @@ class TimelineStore extends Store {
   constructor() {
     super();
     this.data = [];
+    this.currentTime = new Date();
+
+    setInterval(() => {
+      this.currentTime = new Date();
+      this.trigger('updateCurrentTime', this.currentTime);
+    }, 60000);
   }
 
   fetchData() {
@@ -13,4 +19,4 @@ class TimelineStore extends Store {
   }
 }
 
-export {TimelineStore}
+export {TimelineStore};
