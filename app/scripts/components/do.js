@@ -13,7 +13,6 @@ Vue.component('do', {
         axis: 'y',
         containment: '.do-wrapper',
         stop: function(event, ui) {
-          
           _this.top = ui.position.top;
         }
       })
@@ -22,6 +21,14 @@ Vue.component('do', {
         stop: function(event, ui) {
           _this.height = ui.size.height;
           _this.top = ui.position.top;
+        }
+      })
+      .on({
+        'mousedown': function() {
+          $(this).addClass("ui-draggable-dragging");
+        },
+        'mouseup': function() {
+          $(this).removeClass("ui-draggable-dragging");
         }
       });
   },
