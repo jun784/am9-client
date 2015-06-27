@@ -13,7 +13,7 @@ Vue.component('do', {
       ui.element.height(ui.size.height);
       _this.height = parseInt(ui.element.css('height'));
       _this.top = ui.position.top;
-      _this.$parent.resolveOverlap(ui.position.top - ui.originalPosition.top < 0);
+      _this.$parent.resolveResize(ui.position.top - ui.originalPosition.top < 0);
     };
 
     $(this.$el)
@@ -21,9 +21,12 @@ Vue.component('do', {
         axis: 'y',
         containment: '.do-wrapper',
         stack: '.do-item',
+        drag: function(event, ui) {
+          _this.top = ui.position.top;
+        },
         stop: function(event, ui) {
           _this.top = ui.position.top;
-          _this.$parent.resolveOverlap();
+          _this.$parent.resolveDrop(_this.d);
         }
       })
       .resizable({
@@ -68,6 +71,10 @@ Vue.component('do', {
 
     isDoing: function() {
       return this.d.start <= this.$root.currentTime && this.$root.currentTime < this.d.start + this.d.time;
+    },
+
+    isDone: function() {
+      return this.d.start + this.d.time <= this.$root.currentTime;
     }
   }
 });

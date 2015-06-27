@@ -25,6 +25,7 @@ $done-text-color: #38CF9D;
   box-sizing: border-box;
   cursor: -moz-grab;
   cursor: -webkit-grab;
+  transition: 200ms;
 
   &:focus {
     outline: none;
