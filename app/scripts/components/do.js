@@ -20,16 +20,18 @@ Vue.component('do', {
       .resizable({
         handles: 'n, s',
         resize: function(event, ui) {
+          ui.element.width(ui.originalSize.width);
           ui.element.height(ui.size.height);
           _this.height = parseInt(ui.element.css('height'));
           _this.top = ui.position.top;
-          _this.$parent.resolveOverlap();
+          _this.$parent.resolveOverlap(_this.top);
         },
         stop: function(event, ui) {
+          ui.element.width(ui.originalSize.width);
           ui.element.height(ui.size.height);
           _this.height = parseInt(ui.element.css('height'));
           _this.top = ui.position.top;
-          _this.$parent.resolveOverlap();
+          _this.$parent.resolveOverlap(_this.top);
         }
       })
       .on({
