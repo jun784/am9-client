@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 $do-background-color: #FFFFFF;
-$do-hover-background-color: #E4EFFF;
+$do-hover-background-color: #EEF5FF;
 $do-text-color: #3776D1;
 $done-background-color: rgba(56, 207, 157, 0.20);
 $done-text-color: #38CF9D;
@@ -31,10 +31,10 @@ $done-text-color: #38CF9D;
     }
   }
 
-  &:hover .do-item-inner {
+  &:not(.doing):hover .do-item-inner {
     transform: translateX(0px) scale(1.00);
     box-shadow: rgba(0, 0, 0, 0.0) -2px 0px 2px;
-    background-color: $do-hover-background-color;
+    // background-color: $do-hover-background-color;
   }
 
   &.ui-draggable-dragging {
@@ -42,7 +42,7 @@ $done-text-color: #38CF9D;
     cursor: -webkit-grabbing;
   }
 
-  &.ui-draggable-dragging .do-item-inner {
+  &:not(.doing).ui-draggable-dragging .do-item-inner {
     transform: translateX(6px) scale(1.00);
     box-shadow: rgba(0, 0, 0, 0.12) -4px 0px 10px;
   }
@@ -75,6 +75,7 @@ $done-text-color: #38CF9D;
   transition: 200ms;
   border-radius: 10px;
   padding: 10px;
+  font-size: 12px;
   border: solid 2px $do-text-color;
   background-color: $do-background-color;
   color: $do-text-color;

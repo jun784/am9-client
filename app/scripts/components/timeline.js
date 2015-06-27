@@ -54,12 +54,12 @@ timeline.refresh({
   resources: [
     {
       do: [{
-        body: 'body 1',
-        start: new Date('2015-06-28T00:00+0900').getTime(),
-        time: 1000 * 60 * 60 * 2,
+        body: 'シャワーを浴びる',
+        start: new Date('2015-06-28T06:00+0900').getTime(),
+        time: 1000 * 60 * 30,
         done: false
       }, {
-        body: 'body 2',
+        body: 'ご飯を食べる',
         start: new Date('2015-06-28T23:00+0900').getTime(),
         time: 1000 * 60 * 60,
         done: false

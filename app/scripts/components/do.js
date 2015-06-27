@@ -27,7 +27,7 @@ Vue.component('do', {
         'mousedown': function() {
           $(this).addClass("ui-draggable-dragging");
         },
-        'mouseup': function() {
+        'mouseup mouseleave': function() {
           $(this).removeClass("ui-draggable-dragging");
         }
       });
