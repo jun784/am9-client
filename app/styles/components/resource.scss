@@ -3,7 +3,7 @@
 .resource {
   display: inline-block;
   width: 300px;
-  background-color: cyan;
+  background-color: rgba(0,0,0,0.2);
 }
 
 .do-list {
@@ -20,7 +20,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  background-color: red;
+  background-color: rgba(0,0,0,0.1);
   transform: translateZ(0);
   transition: 200ms;
 }
