@@ -12,8 +12,8 @@ Vue.component('do', {
       .draggable({
         axis: 'y',
         containment: '.do-wrapper',
+        stack: '.do-item',
         stop: function(event, ui) {
-          
           _this.top = ui.position.top;
         }
       })
