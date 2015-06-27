@@ -12,24 +12,31 @@ Vue.component('do', {
       .draggable({
         axis: 'y',
         containment: '.do-wrapper',
+        stack: '.do-item',
         stop: function(event, ui) {
           _this.top = ui.position.top;
         }
       })
       .resizable({
         handles: 'n, s',
+        resize: function(event, ui) {
+          _this.height = ui.size.height;
+          _this.top = ui.position.top;
+          _this.$parent.resolveOverlap();
+        },
         stop: function(event, ui) {
           _this.height = ui.size.height;
           _this.top = ui.position.top;
+          _this.$parent.resolveOverlap();
         }
       })
       .on({
-        'mousedown': function() {
-          $(this).addClass("ui-draggable-dragging");
-        },
-        'mouseup mouseleave': function() {
-          $(this).removeClass("ui-draggable-dragging");
-        }
+        // 'mousedown': function() {
+        //   $(this).addClass("ui-draggable-dragging");
+        // },
+        // 'mouseup mouseleave': function() {
+        //   $(this).removeClass("ui-draggable-dragging");
+        // }
       });
   },
 

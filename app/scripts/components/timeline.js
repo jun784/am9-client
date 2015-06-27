@@ -6,10 +6,10 @@ var timeline = new Vue({
   el: '#timeline',
 
   data: {
-    start: new Date('2015-06-28T00:00+0900').getTime(),
+    start: new Date(2015, 5, 28).getTime(),
     time: 1000 * 60 * 60 * 24,
     step: 1000 * 60 * 15,
-    stepLength: 15,
+    stepLength: 30,
     currentTime: new Date().getTime(),
 
     resources: null
@@ -56,19 +56,19 @@ timeline.refresh({
       do: [{
         body: 'シャワーを浴びる',
         start: new Date('2015-06-28T06:00+0900').getTime(),
-        time: 1000 * 60 * 30,
+        time: 1000 * 60 * 25,
         done: false
       }, {
         body: 'ご飯を食べる',
-        start: new Date('2015-06-28T23:00+0900').getTime(),
-        time: 1000 * 60 * 60,
+        start: new Date('2015-06-28T06:30+0900').getTime(),
+        time: 1000 * 60 * 25,
         done: false
       }]
     },
     {
       do: [{
         body: 'body 2',
-        start: new Date('2015-06-28T04:00+0900').getTime(),
+        start: new Date(2015, 5, 28, 4, 0).getTime(),
         time: 1000 * 60 * 60 * 2,
         done: false
       }]

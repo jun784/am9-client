@@ -5,7 +5,7 @@
 
 .timeline-scale {
   position: relative;
-  height: 60px;
+  height: 120px;
   width: 100%;
   background-image: url(/images/time_back.png);
   background-size: auto 100%;
@@ -24,4 +24,5 @@
   left: 0;
   right: 0;
   border-top: 1px solid #ff6666;
+  z-index: 1000;
 }

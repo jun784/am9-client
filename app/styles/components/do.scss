@@ -21,6 +21,7 @@ $done-text-color: #38CF9D;
   left: 0px;
   right: 0px;
   padding: 10px;
+  box-sizing: border-box;
   cursor: -moz-grab;
   cursor: -webkit-grab;
 
@@ -43,8 +44,8 @@ $done-text-color: #38CF9D;
   }
 
   &:not(.doing).ui-draggable-dragging .do-item-inner {
-    transform: translateX(6px) scale(1.00);
-    box-shadow: rgba(0, 0, 0, 0.12) -4px 0px 10px;
+    transform: translateX(4px) scale(1.00);
+    box-shadow: rgba(0, 0, 0, 0.1) -2px 0px 10px;
   }
 
   &.doing .do-item-inner {
@@ -74,9 +75,9 @@ $done-text-color: #38CF9D;
   transform: translateZ(0);
   transition: 200ms;
   border-radius: 10px;
-  padding: 10px;
+  padding: 6px;
   font-size: 12px;
-  border: solid 2px $do-text-color;
+  border: solid 1px $do-text-color;
   background-color: $do-background-color;
   color: $do-text-color;
   overflow: hidden;
