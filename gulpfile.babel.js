@@ -6,6 +6,7 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
+import webpack from 'webpack-stream';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -25,37 +26,37 @@ gulp.task('styles', () => {
     .pipe(reload({stream: true}));
 });
 
-function lint(files, options) {
-  return () => {
-    return gulp.src(files)
-      .pipe(reload({stream: true, once: true}))
-      .pipe($.eslint(options))
-      .pipe($.eslint.format())
-      .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
-  };
-}
-const testLintOptions = {
-  env: {
-    mocha: true
-  },
-  globals: {
-    assert: false,
-    expect: false,
-    should: false,
-    Vue: false,
-    page: false
-  }
-};
-
-gulp.task('lint', lint('app/scripts/**/*.js', { globals: { Vue: false, page: false }}));
-gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
+gulp.task('scripts', () => {
+  return gulp.src(['app/scripts/*/**/*.js', 'app/scripts/main.js'])
+    .pipe($.plumber())
+    .pipe($.sourcemaps.init())
+    .pipe(webpack({
+      output: {
+        filename: 'main.js'
+      },
+      resolve: {
+        extensions: ['', '.js']
+      },
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    }))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe(reload({stream: true}));
+});
 
 gulp.task('html', ['inject'], () => {
   const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
 
   return gulp.src('.tmp/*.html')
     .pipe(assets)
-    .pipe($.if('*.js', $.uglify()))
+    .pipe($.if(['*.js', '!app/**/*.js'], $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
     .pipe(assets.restore())
     .pipe($.useref())
@@ -96,10 +97,10 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('inject', ['styles'], () => {
+gulp.task('inject', ['styles', 'scripts'], () => {
   return gulp.src('app/*.html')
     .pipe($.inject(
-      gulp.src(['app/scripts/*/**/*.js', 'app/scripts/main.js', '.tmp/styles/**/*.css'], { read: false }),
+      gulp.src(['.tmp/scripts/main.js', '.tmp/styles/**/*.css'], { read: false }),
       { ignorePath: ['app', '.tmp'], addRootSlash: false }))
     .pipe(gulp.dest('.tmp'))
     .pipe(reload({stream: true, once: true}));
@@ -126,7 +127,7 @@ gulp.task('serve', ['inject', 'fonts'], () => {
   ]).on('change', reload);
 
   gulp.watch('app/*.html', ['inject']);
-  gulp.watch('app/styles/**/*.scss', ['inject']);
+  gulp.watch(['app/styles/**/*.scss', 'app/scripts/**/*.js'], ['inject']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
@@ -173,7 +174,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['html', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
