@@ -6,7 +6,7 @@ var timeline = new Vue({
   el: '#timeline',
 
   data: {
-    start: new Date('2015-06-28T00:00+0900').getTime(),
+    start: new Date(2015, 5, 28).getTime(),
     time: 1000 * 60 * 60 * 24,
     step: 1000 * 60 * 15,
     stepLength: 15,
@@ -55,12 +55,12 @@ timeline.refresh({
     {
       do: [{
         body: 'body 1',
-        start: new Date('2015-06-28T00:00+0900').getTime(),
+        start: new Date(2015, 5, 28, 0, 0).getTime(),
         time: 1000 * 60 * 60 * 2,
         done: false
       }, {
         body: 'body 2',
-        start: new Date('2015-06-28T23:00+0900').getTime(),
+        start: new Date(2015, 5, 28, 23, 0).getTime(),
         time: 1000 * 60 * 60,
         done: false
       }]
@@ -68,7 +68,7 @@ timeline.refresh({
     {
       do: [{
         body: 'body 2',
-        start: new Date('2015-06-28T04:00+0900').getTime(),
+        start: new Date(2015, 5, 28, 4, 0).getTime(),
         time: 1000 * 60 * 60 * 2,
         done: false
       }]
