@@ -55,12 +55,17 @@ timeline.refresh({
     {
       do: [{
         body: 'シャワーを浴びる',
-        start: new Date('2015-06-28T06:00+0900').getTime(),
+        start: new Date(2015, 5, 28, 6, 0).getTime(),
         time: 1000 * 60 * 25,
         done: false
       }, {
         body: 'ご飯を食べる',
-        start: new Date('2015-06-28T06:30+0900').getTime(),
+        start: new Date(2015, 5, 28, 6, 30).getTime(),
+        time: 1000 * 60 * 25,
+        done: false
+      }, {
+        body: '掃除をする',
+        start: new Date(2015, 5, 28, 7, 0).getTime(),
         time: 1000 * 60 * 25,
         done: false
       }]
