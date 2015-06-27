@@ -1,5 +1,5 @@
 {
   "esnext": true,
   "globalstrict": true,
-  "predef": ["Vue"]
+  "predef": ["Vue", "page"]
 }
