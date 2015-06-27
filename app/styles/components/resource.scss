@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 .resource {
-  display: inline-block;
-  width: 300px;
-  background-color: cyan;
+  float: left;
+  width: 240px;
+  background-color: rgba(0,0,0,0.2);
 }
 
 .do-list {
@@ -18,11 +18,16 @@
 
 .do-item {
   position: absolute;
-  left: 0;
-  right: 0;
-  background-color: red;
+  left: 10px;
+  right: 10px;
+  background-color: rgba(0,0,0,0.1);
   transform: translateZ(0);
   transition: 200ms;
+  border-radius: 10px;
+  padding: 10px;
+  border: solid 2px #3776D1;
+  background-color: #FFFFFF;
+  color: #3776D1;
 }
 
 .do-body {
