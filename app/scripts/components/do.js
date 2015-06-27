@@ -8,6 +8,14 @@ Vue.component('do', {
   ready: function() {
     var _this = this;
 
+    var onResize = function(event, ui) {
+      ui.element.width(ui.originalSize.width);
+      ui.element.height(ui.size.height);
+      _this.height = parseInt(ui.element.css('height'));
+      _this.top = ui.position.top;
+      _this.$parent.resolveOverlap(ui.position.top - ui.originalPosition.top < 0);
+    };
+
     $(this.$el)
       .draggable({
         axis: 'y',
@@ -19,20 +27,8 @@ Vue.component('do', {
       })
       .resizable({
         handles: 'n, s',
-        resize: function(event, ui) {
-          ui.element.width(ui.originalSize.width);
-          ui.element.height(ui.size.height);
-          _this.height = parseInt(ui.element.css('height'));
-          _this.top = ui.position.top;
-          _this.$parent.resolveOverlap(_this.top);
-        },
-        stop: function(event, ui) {
-          ui.element.width(ui.originalSize.width);
-          ui.element.height(ui.size.height);
-          _this.height = parseInt(ui.element.css('height'));
-          _this.top = ui.position.top;
-          _this.$parent.resolveOverlap(_this.top);
-        }
+        resize: onResize,
+        stop: onResize
       })
       .on({
         // 'mousedown': function() {

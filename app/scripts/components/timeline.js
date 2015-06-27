@@ -63,6 +63,11 @@ timeline.refresh({
         start: new Date('2015-06-28T06:30+0900').getTime(),
         time: 1000 * 60 * 25,
         done: false
+      }, {
+        body: '寝る',
+        start: new Date(2015, 5, 28, 7, 0).getTime(),
+        time: 1000 * 60 * 25,
+        done: false
       }]
     },
     {

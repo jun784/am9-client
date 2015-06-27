@@ -6,7 +6,7 @@ Vue.component('resource', {
   props: ['resource'],
 
   methods: {
-    resolveOverlap: function() {
+    resolveOverlap: function(reverse) {
       var i, ii, target, next;
       var margin = 1000 * 60 * 5;
       var doList = this.resource.do;
@@ -14,12 +14,23 @@ Vue.component('resource', {
         return a.start - b.start;
       });
 
-      for (i = 0, ii = doList.length - 1; i < ii; ++i) {
-        target = doList[i];
-        next = doList[i + 1];
+      if (reverse) {
+        for (i = doList.length - 1, ii = 0; i > ii; --i) {
+          target = doList[i];
+          next = doList[i - 1];
 
-        if (target.start + target.time + margin > next.start) {
-          next.start = target.start + target.time + margin;
+          if (target.start - next.time - margin < next.start) {
+            next.start = target.start - next.time - margin;
+          }
+        }
+      } else {
+        for (i = 0, ii = doList.length - 1; i < ii; ++i) {
+          target = doList[i];
+          next = doList[i + 1];
+
+          if (target.start + target.time + margin > next.start) {
+            next.start = target.start + target.time + margin;
+          }
         }
       }
     }
