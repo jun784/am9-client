@@ -18,3 +18,10 @@
     color: #868686;
   }
 }
+
+.timeline-current {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 2px solid #ff6666;
+}
