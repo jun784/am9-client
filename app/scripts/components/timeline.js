@@ -9,7 +9,7 @@ var timeline = new Vue({
     start: new Date('2015-06-27T00:00+0900').getTime(),
     time: 1000 * 60 * 60 * 24,
     step: 1000 * 60 * 15,
-    stepLength: 18,
+    stepLength: 15,
 
     resources: null
   },

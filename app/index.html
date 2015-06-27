@@ -11,7 +11,7 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="/bower_components/normalize.css/normalize.css">
+    <link rel="stylesheet" href="/bower_components/reset-css/reset.css">
     <link rel="stylesheet" href="/bower_components/jquery-ui/themes/base/all.css">
     <!-- endbower -->
     <!-- endbuild -->
@@ -75,7 +75,9 @@
 
     <script type="text/template" id="do">
       <li class="do-item" v-style="{ height: height + 'px', top: top + 'px' }">
-        <p class="do-body" v-text="d.body"></p>
+        <div class="do-item-inner">
+          <p class="do-body" v-text="d.body"></p>
+        </div>
       </li>
     </script>
 
