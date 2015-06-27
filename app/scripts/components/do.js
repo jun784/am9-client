@@ -15,6 +15,9 @@ Vue.component('do', {
         stack: '.do-item',
         stop: function(event, ui) {
           _this.top = ui.position.top;
+          setTimeout(function() {
+            _this.$parent.resolveOverlap();
+          }, 1)
         }
       })
       .resizable({
@@ -24,7 +27,7 @@ Vue.component('do', {
           ui.element.height(ui.size.height);
           _this.height = parseInt(ui.element.css('height'));
           _this.top = ui.position.top;
-          _this.$parent.resolveOverlap(_this.top);
+          _this.$parent.resolveOverlap();
         },
         stop: function(event, ui) {
           ui.element.width(ui.originalSize.width);

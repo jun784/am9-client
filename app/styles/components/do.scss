@@ -1,8 +1,9 @@
 @charset "UTF-8";
 
-$do-background-color: #FFFFFF;
+$do-background-color: rgba(150, 214, 255, 0.14);
 $do-hover-background-color: #EEF5FF;
-$do-text-color: #3776D1;
+$do-text-color: #077BC5;
+$do-border-color: #96D6FF;
 $done-background-color: rgba(56, 207, 157, 0.20);
 $done-text-color: #38CF9D;
 
@@ -24,6 +25,7 @@ $done-text-color: #38CF9D;
   box-sizing: border-box;
   cursor: -moz-grab;
   cursor: -webkit-grab;
+  transition: 0.5s cubic-bezier(0.2, 0.01, 0.26, 1.09);
 
   &:focus {
     outline: none;
@@ -35,16 +37,16 @@ $done-text-color: #38CF9D;
   &:not(.doing):hover .do-item-inner {
     transform: translateX(0px) scale(1.00);
     box-shadow: rgba(0, 0, 0, 0.0) -2px 0px 2px;
-    // background-color: $do-hover-background-color;
   }
 
-  &.ui-draggable-dragging {
+  &.ui-draggable-dragging, &.ui-resizable-resizing {
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
+    transition: 0ms;
   }
 
   &:not(.doing).ui-draggable-dragging .do-item-inner {
-    transform: translateX(4px) scale(1.00);
+    transform: translateX(6px) scale(1.00);
     box-shadow: rgba(0, 0, 0, 0.1) -2px 0px 10px;
   }
 
@@ -77,7 +79,7 @@ $done-text-color: #38CF9D;
   border-radius: 10px;
   padding: 6px;
   font-size: 12px;
-  border: solid 1px $do-text-color;
+  border: solid 2px $do-border-color;
   background-color: $do-background-color;
   color: $do-text-color;
   overflow: hidden;
