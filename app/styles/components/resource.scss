@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 .resource {
+  display: inline-block;
   width: 300px;
   background-color: cyan;
 }
@@ -20,6 +21,8 @@
   left: 0;
   right: 0;
   background-color: red;
+  transform: translateZ(0);
+  transition: 200ms;
 }
 
 .do-body {
