@@ -75,7 +75,8 @@
     </script>
 
     <script type="text/template" id="do">
-      <li class="do-item" v-style="{ height: height + 'px', top: top + 'px' }">
+      <li class="do-item" v-class="{ done: d.done, doing: isDoing }" v-style="{ height: height + 'px', top: top + 'px' }">
+        <div class="do-background" v-show="isDoing" v-style="{ height: backgroundHeight + 'px' }"></div>
         <p class="do-body" v-text="d.body"></p>
       </li>
     </script>

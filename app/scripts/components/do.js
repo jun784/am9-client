@@ -46,6 +46,14 @@ Vue.component('do', {
       set: function(val) {
         this.d.start = (val / this.$root.height * this.$root.time) + this.$root.start;
       }
+    },
+
+    backgroundHeight: function() {
+      return (this.$root.currentTime - this.d.start) / this.$root.time * this.$root.height;
+    },
+
+    isDoing: function() {
+      return this.d.start <= this.$root.currentTime && this.$root.currentTime < this.d.start + this.d.time;
     }
   }
 });

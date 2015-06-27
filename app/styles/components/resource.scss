@@ -6,6 +6,11 @@
   background-color: rgba(0,0,0,0.2);
 }
 
+$do-background-color: #FFFFFF;
+$do-text-color: #3776D1;
+$done-background-color: #AAFFAA;
+$done-text-color: #22AA22;
+
 .do-list {
   margin: 0;
   padding: 0;
@@ -20,14 +25,33 @@
   position: absolute;
   left: 10px;
   right: 10px;
-  background-color: rgba(0,0,0,0.1);
   transform: translateZ(0);
   transition: 200ms;
   border-radius: 10px;
   padding: 10px;
-  border: solid 2px #3776D1;
-  background-color: #FFFFFF;
-  color: #3776D1;
+  border: solid 2px $do-text-color;
+  background-color: $do-background-color;
+  color: $do-text-color;
+  overflow: hidden;
+
+  &.doing {
+    border-color: $done-text-color;
+    color: $done-text-color;
+  }
+
+  &.done {
+    background-color: $done-background-color;
+    border-color: $done-text-color;
+    color: $done-text-color;
+  }
+}
+
+.do-background {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: $done-background-color;
 }
 
 .do-body {
