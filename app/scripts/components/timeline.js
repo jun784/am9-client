@@ -60,6 +60,11 @@ timeline.refresh({
         done: false
       }, {
         body: 'body 2',
+        start: new Date(2015, 5, 28, 5, 0).getTime(),
+        time: 1000 * 60 * 60,
+        done: false
+      }, {
+        body: 'body 3',
         start: new Date(2015, 5, 28, 23, 0).getTime(),
         time: 1000 * 60 * 60,
         done: false
