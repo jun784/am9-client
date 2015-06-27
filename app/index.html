@@ -11,11 +11,13 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/normalize.css/normalize.css">
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <!-- inject:css -->
+    <!-- endinject -->
     <!-- endbuild -->
 
   </head>
@@ -25,21 +27,26 @@
     <![endif]-->
 
     <div id="container">
-      <div v-component="{{app}}">
-
-        
-
-      </div>
+      <article id="timeline" class="timeline">
+        <resource v-repeat="resource: resources"></resource>
+      </article>
     </div>
 
-    <script type="text/v-template" id="home">
-      <h1>home</h1>
-      <content />
+    <script type="text/template" id="resource">
+      <article class="resource">
+        <div class="timeline-user"></div>
+        <div class="do-wrapper" v-style="{ height: $parent.height + 'px' }">
+          <ol class="do-list">
+            <do v-repeat="d: resource.do"></do>
+          </ol>
+        </div>
+      </article>
     </script>
-    <script type="text/v-template" id="example">
-      <h1>example</h1>
-      <div>パラメータをここに表示する</div>
-      <content />
+
+    <script type="text/template" id="do">
+      <li class="do-item" v-style="{ height: height + 'px', top: top + 'px' }">
+        <p class="do-body" v-text="d.body"></p>
+      </li>
     </script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -55,13 +62,15 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/vue/dist/vue.min.js"></script>
     <script src="/bower_components/page/page.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
-    <script src="scripts/main.js"></script>
+    <!-- inject:js -->
+    <!-- endinject -->
     <!-- endbuild -->
   </body>
 </html>

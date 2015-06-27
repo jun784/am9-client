@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.resource {
+  width: 300px;
+  background-color: cyan;
+}
+
+.do-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.do-wrapper {
+  position: relative;
+}
+
+.do-item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: red;
+}
+
+.do-body {
+  margin: 0;
+}
