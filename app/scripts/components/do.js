@@ -23,6 +23,7 @@ Vue.component('do', {
         stack: '.do-item',
         stop: function(event, ui) {
           _this.top = ui.position.top;
+          _this.$parent.resolveOverlap();
         }
       })
       .resizable({
