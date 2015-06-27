@@ -11,14 +11,13 @@ Vue.component('do', {
     $(this.$el)
       .draggable({
         axis: 'y',
-        grid: [0, this.$root.stepLength],
         containment: '.do-wrapper',
         stop: function(event, ui) {
+          
           _this.top = ui.position.top;
         }
       })
       .resizable({
-        grid: [0, this.$root.stepLength],
         handles: 'n, s',
         stop: function(event, ui) {
           _this.height = ui.size.height;
