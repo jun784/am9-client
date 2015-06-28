@@ -22,7 +22,7 @@ $do-border-color: #96D6FF;
     height: 64px;
     transition: 0.3s cubic-bezier(0.2, 0.01, 0.26, 1.09);
     border-radius: 32px;
-    background: #83CFFF;
+    background: #4AB7FC;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     #up-icon {
@@ -44,7 +44,7 @@ $do-border-color: #96D6FF;
 
   &.add-active #add-frame {
       width: 306px;
-
+      background-color: rgba(74, 183, 252, 0.72);
       #up-icon {
         background-size: 14px 18px;
       }
