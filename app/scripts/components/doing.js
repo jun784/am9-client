@@ -1,7 +1,7 @@
 'use strict';
 
-Vue.component('do', {
-  template: '#do',
+Vue.component('doing', {
+  template: '#doing',
   replace: true,
   props: ['d'],
 
@@ -11,8 +11,8 @@ Vue.component('do', {
     $(this.$el)
       .draggable({
         axis: 'y',
-        containment: '.do-wrapper',
-        stack: '.do-item',
+        containment: '.doing-wrapper',
+        stack: '.doing-item',
         drag: (event, ui) => {
           this.top = ui.position.top;
         },
@@ -26,7 +26,7 @@ Vue.component('do', {
         start: (event, ui) => {
           isDoing = this.isDoing;
           if (isDoing) {
-            ui.element.addClass('do-doing-resizing');
+            ui.element.addClass('doing-doing-resizing');
           }
         },
         resize: (event, ui) => {
@@ -36,7 +36,7 @@ Vue.component('do', {
           this.top = ui.position.top;
         },
         stop: (event, ui) => {
-          ui.element.removeClass('do-doing-resizing');
+          ui.element.removeClass('doing-doing-resizing');
           ui.element.width(ui.originalSize.width);
           ui.element.height(ui.size.height);
           this.height = parseInt(ui.element.css('height'));
