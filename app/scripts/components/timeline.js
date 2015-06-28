@@ -90,3 +90,5 @@ timeline.refresh({
     }
   ]
 });
+
+export {timeline}
