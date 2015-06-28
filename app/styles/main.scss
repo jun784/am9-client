@@ -9,8 +9,7 @@ body {
   overflow: hidden;
   top: 0;
   left: 0;
-  background-image: url(/images/background.jpg);
-  background-size: contein;
+
 }
 
 * {
@@ -25,4 +24,6 @@ body {
   right: 0;
   overflow: hidden;
   z-index: 1;
+  background-image: url(/images/background.jpg);
+  background-size: cover;
 }
