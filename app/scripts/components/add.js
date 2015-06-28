@@ -25,6 +25,7 @@ new Vue({
           time: 1000 * 60 * 25
         });
         $el.removeClass('add-active');
+        $textarea.text("");
       }
     });
     $el.find("#add-icon").on({
@@ -36,6 +37,7 @@ new Vue({
             .attr('style', '')
             .attr('contentEditable', true)
             .draggable("option", "disabled", true)
+            .focus();
       }
     });
     $el.find("#up-icon").on({
