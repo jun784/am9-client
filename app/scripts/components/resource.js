@@ -8,13 +8,17 @@ Vue.component('resource', {
   props: ['resource'],
 
   created: function() {
-    stores.timeline.on('addDoing', function(data) {
+    stores.timeline.on('addDoing', (data) => {
       if (data.resourceId !== this.resource.id) {
         return;
       }
 
-      this.resource.doing.push(data.doing);
-      this.resolveConflict(data.doing);
+      this.resource.doing.$add(data.doing);
+
+      setTimeout(() => {
+        var list = this.$.doing;
+        this.resolveConflict(list[list.length - 1]);
+      }, 100);
     });
   },
 

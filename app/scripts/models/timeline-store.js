@@ -10,16 +10,19 @@ class TimelineStore extends Store {
         {
           id: 1,
           doing: [{
+            id: 1,
             body: 'シャワーを浴びる',
             start: new Date(2015, 5, 28, 8, 0).getTime(),
             time: 1000 * 60 * 60 * 2,
             done: false
           }, {
+            id: 2,
             body: 'ご飯を食べる',
             start: new Date(2015, 5, 28, 10, 30).getTime(),
             time: 1000 * 60 * 25,
             done: false
           }, {
+            id: 3,
             body: '掃除をする',
             start: new Date(2015, 5, 28, 11, 0).getTime(),
             time: 1000 * 60 * 25,
@@ -29,16 +32,19 @@ class TimelineStore extends Store {
         {
           id: 2,
           doing: [{
+            id: 4,
             body: 'シャワーを浴びる',
             start: new Date(2015, 5, 28, 14, 0).getTime(),
             time: 1000 * 60 * 60 * 2,
             done: false
           }, {
+            id: 5,
             body: 'ご飯を食べる',
             start: new Date(2015, 5, 28, 16, 30).getTime(),
             time: 1000 * 60 * 25,
             done: false
           }, {
+            id: 6,
             body: '掃除をする',
             start: new Date(2015, 5, 28, 17, 0).getTime(),
             time: 1000 * 60 * 25,
