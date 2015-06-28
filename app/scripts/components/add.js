@@ -29,7 +29,13 @@ new Vue({
     });
     $el.find("#add-icon").on({
       'click': () => {
+        var flag = $el.hasClass("add-active");
         $el.toggleClass("add-active");
+        $el.removeClass("add-drag")
+        $el.find("#add-textarea")
+            .attr('style', '')
+            .attr('contentEditable', true)
+            .draggable("option", "disabled", true)
       }
     });
     $el.find("#up-icon").on({
