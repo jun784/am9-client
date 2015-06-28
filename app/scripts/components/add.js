@@ -9,9 +9,29 @@ var timeline = new Vue({
     var _this = this;
     var $el = $(this.$el);
 
-    $(this.$el).find("#add-icon").on({
+
+    $el.find("#add-textarea").draggable({
+      axis: 'y',
+      drag: (event, ui) => {
+        this.top = ui.position.top;
+      },
+      stop: (event, ui) => {
+        this.top = ui.position.top;
+      }
+    })
+    $el.find("#add-icon").on({
       'click': function() {
         $el.toggleClass("add-active");
+      }
+    });
+    $el.find("#up-icon").on({
+      'click': function() {
+        var flag = $el.hasClass("add-drag");
+        $el.toggleClass("add-drag");
+        $el.find("#add-textarea")
+            .attr('style', '')
+            .attr('contentEditable', flag)
+            .draggable( "option", "disabled", flag );
       }
     });
 
