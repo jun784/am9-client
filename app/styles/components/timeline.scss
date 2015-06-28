@@ -1,3 +1,26 @@
+@charset "UTF-8";
+
+.timeline-wrapper {
+  overflow: hidden;
+  position: absolute;
+  top: 36px;
+  left: 360px;
+  right: 36px;
+  bottom: 36px;
+  background: #FFF;
+  border-radius: 10px;
+}
+
+.timeline {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+}
+
+.timeline-inner {
+  position: relative;
+}
+
 #timeline-scales {
   position: absolute;
   width: 100%;
