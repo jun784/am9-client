@@ -26,15 +26,15 @@ if (code) {
       $.ajax({
         url:'/user',
         method:'GET',
-        success: function (data) [
+        success: function (data) {
           alert('Hello, ' + data.username + '!!')
-        ]
+        }
       })
     }
   })
 }
 
-var auth = {}
+window.auth = {}
 auth.login = function () {
   window.location = 'https://www.facebook.com/dialog/oauth?%20client_id=966482230069701%20&redirect_uri=' + (window.location.origin || window.location.protocol + '//' + window.location.host) + '/'
 }
