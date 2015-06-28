@@ -22,7 +22,7 @@ new Vue({
         stores.timeline.addDoing(this.resourceId, {
           body: $textarea.text(),
           start: new Date().getTime(),
-          time: 1000 * 60 * 60
+          time: 1000 * 60 * 25
         });
         $el.removeClass('add-active');
       }
