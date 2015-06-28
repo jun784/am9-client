@@ -68,7 +68,7 @@
         <div class="timeline-user"></div>
         <div class="do-wrapper" v-style="{ height: $parent.height + 'px' }">
           <ol class="do-list">
-            <do v-repeat="d: resource.do"></do>
+            <do v-ref="do" v-repeat="d: resource.do"></do>
           </ol>
         </div>
       </article>

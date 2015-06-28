@@ -6,78 +6,53 @@ Vue.component('resource', {
   props: ['resource'],
 
   methods: {
-    resolveDrop: function(target) {
-      var i, ii, fixedStart, cur, next, doList, resolved;
+    resolveConflict: function(target, fixed) {
+      var i, ii, fixedStart, startIdx, cur, next, doList;
       var margin = 1000 * 60 * 5;
 
       // sort doings based on the center position
-      doList = this.resource.do;
+      doList = this.$.do;
       doList.sort((a, b) => {
-        return (a.start + a.time - b.start - b.time) / 2;
+        return (a.d.start + a.d.time - b.d.start - b.d.time) / 2;
       });
 
       // move to upper if the target overlaps the next doing
-      next = doList[doList.indexOf(target) + 1];
-      if (next && target.start + target.time + margin > next.start) {
-        target.start = next.start - target.time - margin;
+      startIdx = doList.indexOf(target);
+      next = doList[startIdx + 1];
+      if (!fixed && next && target.d.start + target.d.time + margin > next.d.start) {
+        target.d.start = next.d.start - target.d.time - margin;
       }
 
       // resolve the conflict between target and fixed position
       fixedStart = this.$parent.currentTime;
       for (i = 0, ii = doList.length; i < ii; ++i) {
-        if (fixedStart < doList[i].start) {
+        if (fixedStart < doList[i].d.start) {
+          // detect the start position of conflict resolution
+          startIdx = Math.min(startIdx, i);
           break;
         }
 
-        if (doList[i].isDoing) {
-          fixedStart = doList[i].start;
+        // skip the target position if the fixed flag is unset
+        if ((fixed || target !== doList[i]) && doList[i].isDoing) {
+          fixedStart = doList[i].d.start + doList[i].d.time;
         }
       }
-      if (target.start < fixedStart + margin) {
-        target.start = fixedStart + margin;
+      // don't move the target if the fixed flag is set
+      if (!fixed && target.d.start < fixedStart + margin) {
+        target.d.start = fixedStart + margin;
       }
 
       // move the position of doings while the conflict is resolved
-      for (i = 0, ii = doList.length - 1; i < ii; ++i) {
-        target = doList[i];
-        next = doList[i + 1];
-        if (target.start + target.time + margin > next.start) {
-          next.start = target.start + target.time + margin;
-        }
-      }
-    },
+      cur = doList[startIdx];
+      for (i = startIdx + 1, ii = doList.length; i < ii; ++i) {
+        next = doList[i];
 
-    resolveResize: function(reverse) {
-      var i, ii, target, next, doList;
-      var margin = 1000 * 60 * 5;
-
-      doList = this.resource.do;
-      doList.sort((a, b) => {
-        return (a.start + a.time - b.start - b.time) / 2;
-      });
-
-      if (reverse) {
-        for (i = doList.length - 1, ii = 0; i > ii; --i) {
-          target = doList[i];
-          next = doList[i - 1];
-
-          if (target.start - next.time - margin < next.start) {
-            next.start = target.start - next.time - margin;
+        if (next.willDo) {
+          if (cur.d.start + cur.d.time + margin > next.d.start) {
+            next.d.start = cur.d.start + cur.d.time + margin;
           }
-        }
-      } else {
-        for (i = 0, ii = doList.length - 1; i < ii; ++i) {
-          target = doList[i];
-          next = doList[i + 1];
 
-          if (i === 0) {
-            if (this.$parent.currentTime > target.start) {
-              target.start = this.$parent.currentTime + margin;
-            }
-          }
-          if (target.start + target.time + margin > next.start) {
-            next.start = target.start + target.time + margin;
-          }
+          cur = next;
         }
       }
     }

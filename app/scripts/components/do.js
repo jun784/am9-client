@@ -6,33 +6,39 @@ Vue.component('do', {
   props: ['d'],
 
   ready: function() {
-    var _this = this;
-
-    var onResize = function(event, ui) {
-      ui.element.width(ui.originalSize.width);
-      ui.element.height(ui.size.height);
-      _this.height = parseInt(ui.element.css('height'));
-      _this.top = ui.position.top;
-      _this.$parent.resolveResize(ui.position.top - ui.originalPosition.top < 0);
-    };
+    var isDoing = false;
 
     $(this.$el)
       .draggable({
         axis: 'y',
         containment: '.do-wrapper',
         stack: '.do-item',
-        drag: function(event, ui) {
-          _this.top = ui.position.top;
+        drag: (event, ui) => {
+          this.top = ui.position.top;
         },
-        stop: function(event, ui) {
-          _this.top = ui.position.top;
-          _this.$parent.resolveDrop(_this.d);
+        stop: (event, ui) => {
+          this.top = ui.position.top;
+          this.$parent.resolveConflict(this);
         }
       })
       .resizable({
         handles: 'n, s',
-        resize: onResize,
-        stop: onResize
+        start: () => {
+          isDoing = this.isDoing;
+        },
+        resize: (event, ui) => {
+          ui.element.width(ui.originalSize.width);
+          ui.element.height(ui.size.height);
+          this.height = parseInt(ui.element.css('height'));
+          this.top = ui.position.top;
+        },
+        stop: (event, ui) => {
+          ui.element.width(ui.originalSize.width);
+          ui.element.height(ui.size.height);
+          this.height = parseInt(ui.element.css('height'));
+          this.top = ui.position.top;
+          this.$parent.resolveConflict(this, isDoing);
+        }
       })
       .on({
         // 'mousedown': function() {
@@ -75,6 +81,10 @@ Vue.component('do', {
 
     isDone: function() {
       return this.d.start + this.d.time <= this.$root.currentTime;
+    },
+
+    willDo: function() {
+      return this.$root.currentTime < this.d.start;
     }
   }
 });
