@@ -44,7 +44,7 @@ $done-text-color: #38CF9D;
     cursor: -webkit-grabbing;
     transition: 0ms;
 
-    .do-background {
+    &:not(.do-doing-resizing) .do-background {
       display: none;
     }
   }
@@ -67,7 +67,7 @@ $done-text-color: #38CF9D;
 
   &.doing.ui-draggable-dragging .do-item-inner,
   &.done.ui-draggable-dragging .do-item-inner,
-  &.doing.ui-resizable-resizing .do-item-inner {
+  &:not(.do-doing-resizing).doing.ui-resizable-resizing .do-item-inner {
     background-color: $do-background-color;
     border-color: $do-border-color;
     color: $do-text-color;

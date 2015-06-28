@@ -13,7 +13,7 @@ Vue.component('resource', {
       // sort doings based on the center position
       doList = this.$.do;
       doList.sort((a, b) => {
-        return (a.d.start + a.d.time - b.d.start - b.d.time) / 2;
+        return a.d.start + a.d.time / 2 - b.d.start - b.d.time / 2;
       });
 
       // move to upper if the target overlaps the next doing
