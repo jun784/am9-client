@@ -57,6 +57,7 @@ $done-text-color: #38CF9D;
   &.doing .doing-item-inner {
     border-color: $done-text-color;
     color: $done-text-color;
+    background-color: #fff;
   }
 
   &.done .doing-item-inner {
