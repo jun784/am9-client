@@ -1,9 +1,22 @@
 'use strict';
 
+import {stores} from '../models/stores';
+
 Vue.component('resource', {
   template: '#resource',
   replace: true,
   props: ['resource'],
+
+  created: function() {
+    stores.timeline.on('addDoing', function(data) {
+      if (data.resourceId !== this.resource.id) {
+        return;
+      }
+
+      this.resource.doing.push(data.doing);
+      this.resolveConflict(data.doing);
+    });
+  },
 
   methods: {
     resolveConflict: function(target, fixed) {

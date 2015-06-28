@@ -30,17 +30,17 @@ class TimelineStore extends Store {
           id: 2,
           doing: [{
             body: 'シャワーを浴びる',
-            start: new Date(2015, 5, 28, 6, 0).getTime(),
-            time: 1000 * 60 * 25,
+            start: new Date(2015, 5, 28, 14, 0).getTime(),
+            time: 1000 * 60 * 60 * 2,
             done: false
           }, {
             body: 'ご飯を食べる',
-            start: new Date(2015, 5, 28, 6, 30).getTime(),
+            start: new Date(2015, 5, 28, 16, 30).getTime(),
             time: 1000 * 60 * 25,
             done: false
           }, {
             body: '掃除をする',
-            start: new Date(2015, 5, 28, 7, 0).getTime(),
+            start: new Date(2015, 5, 28, 17, 0).getTime(),
             time: 1000 * 60 * 25,
             done: false
           }]
@@ -57,6 +57,23 @@ class TimelineStore extends Store {
 
   fetchData() {
 
+  }
+
+  addDoing(resourceId, doing) {
+    var resource = null;
+    for (let i = 0, ii = this.data.resources.length; i < ii; ++i) {
+      if (this.data.resources[i].id === resourceId) {
+        resource = this.data.resources[i];
+      }
+    }
+
+    if (resource === null) {
+      return;
+    }
+
+    resource.doing.push(doing);
+
+    this.trigger('addDoing', { resourceId, doing });
   }
 }
 
