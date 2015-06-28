@@ -43,6 +43,10 @@ $done-text-color: #38CF9D;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
     transition: 0ms;
+
+    .do-background {
+      display: none;
+    }
   }
 
   &:not(.doing).ui-draggable-dragging .do-item-inner {
@@ -61,6 +65,14 @@ $done-text-color: #38CF9D;
     color: $done-text-color;
   }
 
+  &.doing.ui-draggable-dragging .do-item-inner,
+  &.done.ui-draggable-dragging .do-item-inner,
+  &.doing.ui-resizable-resizing .do-item-inner {
+    background-color: $do-background-color;
+    border-color: $do-border-color;
+    color: $do-text-color;
+  }
+
   .ui-resizable-n, .ui-resizable-s {
     cursor: ns-resize;
   }
@@ -73,7 +85,6 @@ $done-text-color: #38CF9D;
   right: 10px;
   top: 0px;
   bottom: 0px;
-  background-color: rgba(0,0,0,0.07);
   transform: translateZ(0);
   transition: 200ms;
   border-radius: 10px;

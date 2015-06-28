@@ -39,14 +39,6 @@ Vue.component('do', {
           this.top = ui.position.top;
           this.$parent.resolveConflict(this, isDoing);
         }
-      })
-      .on({
-        // 'mousedown': function() {
-        //   $(this).addClass("ui-draggable-dragging");
-        // },
-        // 'mouseup mouseleave': function() {
-        //   $(this).removeClass("ui-draggable-dragging");
-        // }
       });
   },
 
