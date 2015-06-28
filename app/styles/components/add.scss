@@ -108,12 +108,12 @@ $do-border-color: #96D6FF;
   }
 
   &.add-drag #add-textarea {
-    top: -70px;
+    top: -30px;
     padding: 6px;
     left: 32px;
     font-size: 12px;
     border: solid 2px #96D6FF;
-    background-color: rgba(150, 214, 255, 0.14);
+    background-color: rgba(255, 255, 255, 0.81);
     color: #077BC5;
     box-shadow: rgba(0, 0, 0, 0.1) -2px 0px 10px;
     cursor: grab;
