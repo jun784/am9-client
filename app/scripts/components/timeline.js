@@ -25,6 +25,12 @@ var timeline = new Vue({
     });
   },
 
+  ready: function() {
+    var $el = $(this.$el);
+    var scrollTop = this.currentTop - $el.height() / 2;
+    $el.scrollTop(scrollTop);
+  },
+
   computed: {
     height: function() {
       return this.time / this.step * this.stepLength;
