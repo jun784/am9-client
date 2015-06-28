@@ -27,6 +27,24 @@ class TimelineStore extends Store {
             start: new Date(2015, 5, 28, 11, 0).getTime(),
             time: 1000 * 60 * 25,
             done: false
+          }, {
+            id: 11,
+            body: 'お風呂に入る',
+            start: new Date(2015, 5, 28, 13, 0).getTime(),
+            time: 1000 * 60 * 115,
+            done: false
+          }, {
+            id: 12,
+            body: 'カラオケ',
+            start: new Date(2015, 5, 28, 15, 0).getTime(),
+            time: 1000 * 60 * 55,
+            done: false
+          }, {
+            id: 13,
+            body: '◯◯の開発',
+            start: new Date(2015, 5, 28, 17, 0).getTime(),
+            time: 1000 * 60 * 175,
+            done: false
           }]
         },
         {
@@ -47,6 +65,34 @@ class TimelineStore extends Store {
             id: 6,
             body: '掃除をする',
             start: new Date(2015, 5, 28, 17, 0).getTime(),
+            time: 1000 * 60 * 25,
+            done: false
+          }]
+        },
+        {
+          id: 3,
+          doing: [{
+            id: 7,
+            body: 'Vue の勉強',
+            start: new Date(2015, 5, 28, 13, 0).getTime(),
+            time: 1000 * 60 * 55,
+            done: false
+          }, {
+            id: 8,
+            body: 'お菓子を食べる',
+            start: new Date(2015, 5, 28, 14, 0).getTime(),
+            time: 1000 * 60 * 25,
+            done: false
+          }, {
+            id: 9,
+            body: '昼寝をする',
+            start: new Date(2015, 5, 28, 14, 30).getTime(),
+            time: 1000 * 60 * 115,
+            done: false
+          }, {
+            id: 10,
+            body: '打ち合わせ',
+            start: new Date(2015, 5, 28, 16, 30).getTime(),
             time: 1000 * 60 * 25,
             done: false
           }]
