@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.header {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 360px - 36px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.header-login-buttons {
+  position: absolute;
+  bottom: 36px;
+  left: 30px;
+  right: 30px;
+  text-align: center;
+}

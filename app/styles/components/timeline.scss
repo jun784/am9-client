@@ -3,12 +3,12 @@
 .timeline-wrapper {
   overflow: hidden;
   position: absolute;
-  top: 0;
+  top: 36px;
   left: 360px;
-  right: 0;
+  right: 36px;
+  bottom: 36px;
   background: #FFF;
   border-radius: 10px;
-  height: 100%;
 }
 
 .timeline {

@@ -29,7 +29,9 @@
 
     <div id="container">
       <header id="header" class="header">
-
+        <div class="header-login-buttons">
+          <a href="#" class="button-facebook">Login with Facebook</a>
+        </div>
       </header>
 
       <div class="timeline-wrapper">
@@ -65,7 +67,7 @@
             <div>
               <resource v-repeat="resource: resources"></resource>
             </div>
-            
+
             <div class="timeline-current" v-style="{ top: currentTop + 'px' }"></div>
           </div>
         </article>
