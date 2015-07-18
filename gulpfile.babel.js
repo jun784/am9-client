@@ -3,16 +3,16 @@
 'use strict';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import browserSync from 'browser-sync';
+import bs from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
 import webpack from 'webpack-stream';
+import fs from 'fs-extra';
 
 const $ = gulpLoadPlugins();
-const reload = browserSync.reload;
 
 gulp.task('styles', () => {
-  return gulp.src('app/styles/**/*.scss')
+  return gulp.src('app/main.scss')
     .pipe($.plumber())
     .pipe($.sourcemaps.init())
     .pipe($.sass.sync({
@@ -22,33 +22,18 @@ gulp.task('styles', () => {
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer({browsers: ['last 1 version']}))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/styles'))
-    .pipe(reload({stream: true}));
+    .pipe(gulp.dest('.tmp'))
+    .pipe(bs.stream());
 });
 
 gulp.task('scripts', () => {
-  return gulp.src(['app/scripts/*/**/*.js', 'app/scripts/main.js'])
+  return gulp.src(['app/main.js'])
     .pipe($.plumber())
     .pipe($.sourcemaps.init())
-    .pipe(webpack({
-      output: {
-        filename: 'main.js'
-      },
-      resolve: {
-        extensions: ['', '.js']
-      },
-      module: {
-        loaders: [
-          {
-            test: /\.js$/,
-            loader: 'babel-loader'
-          }
-        ]
-      }
-    }))
+    .pipe(webpack(require('./webpack.conf.js')))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/scripts'))
-    .pipe(reload({stream: true}));
+    .pipe(gulp.dest('.tmp'))
+    .pipe(bs.stream());
 });
 
 gulp.task('html', ['inject'], () => {
@@ -100,16 +85,16 @@ gulp.task('extras', () => {
 gulp.task('inject', ['styles', 'scripts'], () => {
   return gulp.src('app/*.html')
     .pipe($.inject(
-      gulp.src(['.tmp/scripts/main.js', '.tmp/styles/**/*.css'], { read: false }),
+      gulp.src(['.tmp/main.js', '.tmp/main.css'], { read: false }),
       { ignorePath: ['app', '.tmp'], addRootSlash: false }))
     .pipe(gulp.dest('.tmp'))
-    .pipe(reload({stream: true, once: true}));
+    .pipe(bs.stream({once: true}));
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', ['inject', 'fonts'], () => {
-  browserSync({
+  bs({
     notify: false,
     port: 9000,
     server: {
@@ -121,19 +106,18 @@ gulp.task('serve', ['inject', 'fonts'], () => {
   });
 
   gulp.watch([
-    'app/scripts/**/*.js',
     'app/images/**/*',
     '.tmp/fonts/**/*'
-  ]).on('change', reload);
+  ]).on('change', bs.reload);
 
   gulp.watch('app/*.html', ['inject']);
-  gulp.watch(['app/styles/**/*.scss', 'app/scripts/**/*.js'], ['inject']);
+  gulp.watch(['app/components/**/*', 'app/main.scss', 'app/main.js'], ['inject']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
 
 gulp.task('serve:dist', () => {
-  browserSync({
+  bs({
     notify: false,
     port: 9000,
     server: {
@@ -143,7 +127,7 @@ gulp.task('serve:dist', () => {
 });
 
 gulp.task('serve:test', () => {
-  browserSync({
+  bs({
     notify: false,
     port: 9000,
     ui: false,
@@ -155,17 +139,17 @@ gulp.task('serve:test', () => {
     }
   });
 
-  gulp.watch('test/spec/**/*.js').on('change', reload);
+  gulp.watch('test/spec/**/*.js').on('change', bs.reload);
   gulp.watch('test/spec/**/*.js', ['lint:test']);
 });
 
 // inject bower components
 gulp.task('wiredep', () => {
-  gulp.src('app/styles/*.scss')
+  gulp.src('app/main.scss')
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)+/
     }))
-    .pipe(gulp.dest('app/styles'));
+    .pipe(gulp.dest('app'));
 
   gulp.src('app/*.html')
     .pipe(wiredep({
@@ -176,6 +160,10 @@ gulp.task('wiredep', () => {
 
 gulp.task('build', ['html', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+});
+
+gulp.task('publish', ['build'], (done) => {
+  fs.copy('dist', '../public', done);
 });
 
 gulp.task('default', ['clean'], () => {

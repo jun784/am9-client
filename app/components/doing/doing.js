@@ -1,9 +1,10 @@
 'use strict';
 
-Vue.component('doing', {
-  template: '#doing',
+require('./doing.scss');
+
+module.exports = {
+  template: require('./doing.html'),
   replace: true,
-  props: ['d'],
 
   ready: function() {
     var isDoing = false;
@@ -49,38 +50,38 @@ Vue.component('doing', {
   computed: {
     height: {
       get: function() {
-        return this.d.time / this.$root.time * this.$root.height;
+        return this.time / this.$parent.$parent.time * this.$parent.$parent.height;
       },
 
       set: function(val) {
-        this.d.time = val * this.$root.time / this.$root.height;
+        this.time = val * this.$parent.$parent.time / this.$parent.$parent.height;
       }
     },
 
     top: {
       get: function() {
-        return (this.d.start - this.$root.start) / this.$root.time * this.$root.height;
+        return (this.start - this.$parent.$parent.start) / this.$parent.$parent.time * this.$parent.$parent.height;
       },
 
       set: function(val) {
-        this.d.start = (val / this.$root.height * this.$root.time) + this.$root.start;
+        this.start = (val / this.$parent.$parent.height * this.$parent.$parent.time) + this.$parent.$parent.start;
       }
     },
 
     backgroundHeight: function() {
-      return (this.$root.currentTime - this.d.start) / this.$root.time * this.$root.height;
+      return (this.$parent.$parent.currentTime - this.start) / this.$parent.$parent.time * this.$parent.$parent.height;
     },
 
     isDoing: function() {
-      return this.d.start <= this.$root.currentTime && this.$root.currentTime < this.d.start + this.d.time;
+      return this.start <= this.$parent.$parent.currentTime && this.$parent.$parent.currentTime < this.start + this.time;
     },
 
     isDone: function() {
-      return this.d.start + this.d.time <= this.$root.currentTime;
+      return this.start + this.time <= this.$parent.$parent.currentTime;
     },
 
     willDo: function() {
-      return this.$root.currentTime < this.d.start;
+      return this.$parent.$parent.currentTime < this.start;
     }
   }
-});
+};

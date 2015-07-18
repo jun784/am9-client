@@ -1,0 +1,6 @@
+<li class="doing-item" tabindex="1" v-class="{ done: isDone, doing: isDoing }" v-style="{ height: height + 'px', top: top + 'px' }">
+  <div class="doing-item-inner">
+    <div class="doing-background" v-show="isDoing" v-style="{ height: backgroundHeight + 'px' }"></div>
+    <p class="doing-body" v-text="body"></p>
+  </div>
+</li>

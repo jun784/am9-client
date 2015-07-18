@@ -15,6 +15,7 @@ $done-text-color: #38CF9D;
 
 .doing-wrapper {
   position: relative;
+  transform: translateZ(0);
 }
 
 .doing-item {
@@ -25,7 +26,8 @@ $done-text-color: #38CF9D;
   box-sizing: border-box;
   cursor: -moz-grab;
   cursor: -webkit-grab;
-  transition: 500ms;
+  transition: 400ms cubic-bezier(0.35, 1.22, 0.93, 1.01);
+
 
   &:focus {
     outline: none;

@@ -1,24 +1,22 @@
 'use strict';
 
-import {stores} from '../models/stores';
+import Vue from 'vue';
 
-Vue.component('resource', {
-  template: '#resource',
+require('./resource.scss');
+
+module.exports = {
+  template: require('./resource.html'),
   replace: true,
-  props: ['resource'],
+
+  components: {
+    doing: require('../doing/doing')
+  },
 
   created: function() {
-    stores.timeline.on('addDoing', (data) => {
-      if (data.resourceId !== this.resource.id) {
-        return;
-      }
-
-      this.resource.doing.$add(data.doing);
-
-      setTimeout(() => {
-        var list = this.$.doing;
-        this.resolveConflict(list[list.length - 1]);
-      }, 100);
+    this.$on('doing-added', (idx) => {
+      Vue.nextTick(() => {
+        this.resolveConflict(this.$.doing[idx]);
+      });
     });
   },
 
@@ -30,20 +28,20 @@ Vue.component('resource', {
       // sort doings based on the center position
       doingList = this.$.doing;
       doingList.sort((a, b) => {
-        return a.d.start + a.d.time / 2 - b.d.start - b.d.time / 2;
+        return a.start + a.time / 2 - b.start - b.time / 2;
       });
 
       // move to upper if the target overlaps the next doing
       startIdx = doingList.indexOf(target);
       next = doingList[startIdx + 1];
-      if (!fixed && next && target.d.start + target.d.time + margin > next.d.start) {
-        target.d.start = next.d.start - target.d.time - margin;
+      if (!fixed && next && target.start + target.time + margin > next.start) {
+        target.start = next.start - target.time - margin;
       }
 
       // resolve the conflict between target and fixed position
       fixedStart = this.$parent.currentTime;
       for (i = 0, ii = doingList.length; i < ii; ++i) {
-        if (fixedStart < doingList[i].d.start) {
+        if (fixedStart < doingList[i].start) {
           // detect the start position of conflict resolution
           startIdx = Math.min(startIdx, i);
           break;
@@ -51,12 +49,12 @@ Vue.component('resource', {
 
         // skip the target position if the fixed flag is unset
         if ((fixed || target !== doingList[i]) && doingList[i].isDoing) {
-          fixedStart = doingList[i].d.start + doingList[i].d.time;
+          fixedStart = doingList[i].start + doingList[i].time;
         }
       }
       // don't move the target if the fixed flag is set
-      if (!fixed && target.d.start < fixedStart + margin) {
-        target.d.start = fixedStart + margin;
+      if (!fixed && target.start < fixedStart + margin) {
+        target.start = fixedStart + margin;
       }
 
       // move the position of doings while the conflict is resolved
@@ -65,8 +63,8 @@ Vue.component('resource', {
         next = doingList[i];
 
         if (next.willDo) {
-          if (cur.d.start + cur.d.time + margin > next.d.start) {
-            next.d.start = cur.d.start + cur.d.time + margin;
+          if (cur.start + cur.time + margin > next.start) {
+            next.start = cur.start + cur.time + margin;
           }
 
           cur = next;
@@ -74,4 +72,4 @@ Vue.component('resource', {
       }
     }
   }
-});
+};

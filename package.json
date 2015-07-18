@@ -1,4 +1,5 @@
 {
+  "name": "am9-client",
   "engines": {
     "node": ">=0.12.0"
   },
@@ -7,7 +8,9 @@
     "babel-core": "^5.6.15",
     "babel-loader": "^5.2.2",
     "browser-sync": "^2.2.1",
+    "css-loader": "^0.15.4",
     "del": "^1.1.1",
+    "fs-extra": "^0.21.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^2.3.1",
     "gulp-babel": "^5.1.0",
@@ -25,22 +28,17 @@
     "gulp-sourcemaps": "^1.5.0",
     "gulp-uglify": "^1.1.0",
     "gulp-useref": "^1.1.1",
+    "html-loader": "^0.3.0",
     "main-bower-files": "^2.5.0",
+    "node-sass": "^3.2.0",
     "opn": "^1.0.1",
+    "sass-loader": "^1.0.2",
+    "style-loader": "^0.12.3",
     "webpack-stream": "^2.0.0",
     "wiredep": "^2.2.2"
   },
-  "eslintConfig": {
-    "env": {
-      "node": true,
-      "browser": true
-    },
-    "rules": {
-      "quotes": [
-        2,
-        "single"
-      ]
-    }
-  },
-  "dependencies": {}
+  "dependencies": {
+    "vue": "^0.12.7",
+    "vue-route": "^1.5.0"
+  }
 }

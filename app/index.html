@@ -1,10 +1,10 @@
-<!doctype html>
-<html lang="">
+<!DOCTYPE html>
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AM9 for team</title>
+    <title>AM9</title>
 
     <!-- Place favicon.ico in the root directory -->
 
@@ -26,80 +26,9 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div id="container">
-      <header id="header" class="header">
-        <div class="header-login-buttons">
-          <a href="#" class="button-facebook">Login with Facebook</a>
-        </div>
-      </header>
-
-      <div class="timeline-wrapper">
-        <article id="timeline" class="timeline">
-          <div class="timeline-inner">
-            <ul id="timeline-scales">
-              <li class="timeline-scale"><span>0</span></li>
-              <li class="timeline-scale"><span>1</span></li>
-              <li class="timeline-scale"><span>2</span></li>
-              <li class="timeline-scale"><span>3</span></li>
-              <li class="timeline-scale"><span>4</span></li>
-              <li class="timeline-scale"><span>5</span></li>
-              <li class="timeline-scale"><span>6</span></li>
-              <li class="timeline-scale"><span>7</span></li>
-              <li class="timeline-scale"><span>8</span></li>
-              <li class="timeline-scale"><span>9</span></li>
-              <li class="timeline-scale"><span>10</span></li>
-              <li class="timeline-scale"><span>11</span></li>
-              <li class="timeline-scale"><span>12</span></li>
-              <li class="timeline-scale"><span>13</span></li>
-              <li class="timeline-scale"><span>14</span></li>
-              <li class="timeline-scale"><span>15</span></li>
-              <li class="timeline-scale"><span>16</span></li>
-              <li class="timeline-scale"><span>17</span></li>
-              <li class="timeline-scale"><span>18</span></li>
-              <li class="timeline-scale"><span>19</span></li>
-              <li class="timeline-scale"><span>20</span></li>
-              <li class="timeline-scale"><span>21</span></li>
-              <li class="timeline-scale"><span>22</span></li>
-              <li class="timeline-scale"><span>23</span></li>
-            </ul>
-
-            <div>
-              <resource v-repeat="resource: resources"></resource>
-            </div>
-
-            <div class="timeline-current" v-style="{ top: currentTop + 'px' }"></div>
-          </div>
-        </article>
-        <div id="timeline-header"></div>
-        <div id="add" resource-id="1">
-          <div id="add-frame">
-            <div id="up-icon"></div>
-          </div>
-          <div id="add-icon"></div>
-          <div id="add-textarea" contenteditable="true"></div>
-        </div>
-      </div>
-    </div>
-
-    <script type="text/template" id="resource">
-      <article class="resource">
-        <div class="timeline-user"></div>
-        <div class="doing-wrapper" v-style="{ height: $parent.height + 'px' }">
-          <ol class="doing-list">
-            <doing v-ref="doing" v-repeat="d: resource.doing"></doing>
-          </ol>
-        </div>
-      </article>
-    </script>
-
-    <script type="text/template" id="doing">
-      <li class="doing-item" tabindex="1" v-class="{ done: isDone, doing: isDoing }" v-style="{ height: height + 'px', top: top + 'px' }">
-        <div class="doing-item-inner">
-          <div class="doing-background" v-show="isDoing" v-style="{ height: backgroundHeight + 'px' }"></div>
-          <p class="doing-body" v-text="d.body"></p>
-        </div>
-      </li>
-    </script>
+    <main id="app">
+      <div v-route></div>
+    </main>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -115,7 +44,6 @@
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
-    <script src="/bower_components/vue/dist/vue.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

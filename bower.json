@@ -1,9 +1,8 @@
 {
-  "name": "am9",
+  "name": "am9-client",
   "private": true,
   "dependencies": {
     "jquery": "~2.1.1",
-    "vue": "~0.12.4",
     "jquery-ui": "~1.11.4",
     "reset-css": "~2.0.20110126"
   },
