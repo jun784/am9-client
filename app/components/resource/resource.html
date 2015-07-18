@@ -1,0 +1,8 @@
+<article class="resource">
+  <div class="timeline-user"></div>
+  <div class="doing-wrapper" v-style="{ height: $parent.height + 'px' }">
+    <ol class="doing-list">
+      <doing v-ref="doing" v-repeat="doings"></doing>
+    </ol>
+  </div>
+</article>

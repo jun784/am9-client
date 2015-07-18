@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.resource {
+  z-index: 0;
+  float: left;
+  width: 240px;
+}
+
+.resource:first-child {
+  margin-left: 36px;
+}

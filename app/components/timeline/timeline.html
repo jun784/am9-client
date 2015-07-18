@@ -1,0 +1,38 @@
+<article class="timeline">
+  <header class="timeline-header"></header>
+
+  <div class="timeline-inner">
+    <ul class="timeline-scales">
+      <li class="timeline-scale"><span>0</span></li>
+      <li class="timeline-scale"><span>1</span></li>
+      <li class="timeline-scale"><span>2</span></li>
+      <li class="timeline-scale"><span>3</span></li>
+      <li class="timeline-scale"><span>4</span></li>
+      <li class="timeline-scale"><span>5</span></li>
+      <li class="timeline-scale"><span>6</span></li>
+      <li class="timeline-scale"><span>7</span></li>
+      <li class="timeline-scale"><span>8</span></li>
+      <li class="timeline-scale"><span>9</span></li>
+      <li class="timeline-scale"><span>10</span></li>
+      <li class="timeline-scale"><span>11</span></li>
+      <li class="timeline-scale"><span>12</span></li>
+      <li class="timeline-scale"><span>13</span></li>
+      <li class="timeline-scale"><span>14</span></li>
+      <li class="timeline-scale"><span>15</span></li>
+      <li class="timeline-scale"><span>16</span></li>
+      <li class="timeline-scale"><span>17</span></li>
+      <li class="timeline-scale"><span>18</span></li>
+      <li class="timeline-scale"><span>19</span></li>
+      <li class="timeline-scale"><span>20</span></li>
+      <li class="timeline-scale"><span>21</span></li>
+      <li class="timeline-scale"><span>22</span></li>
+      <li class="timeline-scale"><span>23</span></li>
+    </ul>
+
+    <div>
+      <resource v-repeat="resources"></resource>
+    </div>
+
+    <div class="timeline-current" v-style="{ top: currentTop + 'px' }"></div>
+  </div>
+</article>

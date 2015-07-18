@@ -1,0 +1,5 @@
+<li class="thing">
+  <div class="knob" v-on="click: onClickMoveThing()" >
+    <input type="text" v-class="done: thing.done" v-model="thing.body" v-el="thingInput" v-on="keyup: stateCheck($event)">
+  </div>
+</li>

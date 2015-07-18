@@ -1,10 +1,10 @@
 {
-  "name": "am9",
+  "name": "am9-client",
   "private": true,
   "dependencies": {
     "jquery": "~2.1.1",
-    "vue": "~0.12.4",
-    "page": "visionmedia/page.js#~1.6.3"
+    "jquery-ui": "~1.11.4",
+    "reset-css": "~2.0.20110126"
   },
   "devDependencies": {
     "chai": "~3.0.0",
