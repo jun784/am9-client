@@ -1,0 +1,9 @@
+{
+   "simulated-lag": 1000,
+   "cors": false,
+   "jsonp": false,
+   "proxy": {
+     "server": "http://localhost:9000/api/v1/",
+     "default": false
+   }
+ }
