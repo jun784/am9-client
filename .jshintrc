@@ -2,5 +2,6 @@
   "browser": true,
   "esnext": true,
   "globalstrict": true,
+  "browserify": true,
   "predef": ["$", "jQuery"]
 }
