@@ -20,30 +20,17 @@ module.exports = {
       this.$broadcast('doing-added', idx);
     });
 
-    var resource = this.$resource('/api/v1/resources/:id');
-    resource.get({ id: 1, date: this.todayStr() }, (resource) => {
+    var today = this.todayStr();
+
+    this._resource = this.$resource('/api/v1/resources/:id');
+    this._resource.get({ id: 1, date: this.todayStr() }, (resource) => {
       this.resources = [resource];
     });
 
-    this.things = [{
-      id: '1',
-      body: 'abc1',
-      start: new Date().getTime(),
-      time: 1000 * 60 * 55,
-      done: false
-    },{
-      id: '2',
-      body: 'abc2',
-      start: new Date().getTime(),
-      time: 1000 * 60 * 55,
-      done: false
-    },{
-      id: '3',
-      body: 'abc3',
-      start: new Date().getTime(),
-      time: 1000 * 60 * 55,
-      done: false
-    }];
+    this._thing = this.$resource('/api/v1/things');
+    this._thing.get({ date: today }, (things) => {
+      this.things = things;
+    });
   },
 
   methods: {
