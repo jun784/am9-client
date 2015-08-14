@@ -20,7 +20,64 @@ module.exports = {
     });
   },
 
+  ready: function() {
+    var $el = $(this.$el);
+
+    $el.droppable({
+      accept: '.thing',
+      tolerance: 'pointer',
+      over: (event, ui) => {
+        ui.helper.addClass('doing-from-thing');
+      },
+      out: (event, ui) => {
+        ui.helper.removeClass('doing-from-thing');
+      },
+      drop: (event, ui) => {
+        var thing = ui.helper.data('thing');
+
+        // create the clone of the helper because the original helper is removed after finished drop function
+        var $parent = ui.helper.parent();
+        var $helper = ui.helper.clone().appendTo($parent);
+
+        // add a doing after move its element into resource area
+        this.convergeThingPosition($helper, () => {
+          var pos = this.positionForResource($helper);
+          var start = this.$parent.start + (pos.top / this.$parent.height) * this.$parent.time;
+
+          this.doings.push({
+            body: thing.body,
+            startedAt: new Date(start),
+            endedAt: new Date(start + this.$parent.step * 2)
+          });
+
+          this.$emit('doing-added', this.doings.length - 1);
+
+          // ensure the cloned element is removed
+          $helper.remove();
+        });
+      }
+    });
+  },
+
   methods: {
+    positionForResource: function($target) {
+      var target = $target.offset();
+      var resource = $(this.$el).offset();
+
+      return {
+        left: target.left - resource.left,
+        top: target.top - resource.top
+      };
+    },
+
+    convergeThingPosition: function($helper, done) {
+      var deltaLeft = $(this.$el).offset().left - $helper.offset().left;
+
+      $helper.on('transitionend', done)
+        .addClass('converging')
+        .css('left', parseInt($helper.css('left')) + deltaLeft);
+    },
+
     resolveConflict: function(target, fixed) {
       var i, ii, fixedStart, startIdx, cur, next, doingList;
       var margin = 1000 * 60 * 5;

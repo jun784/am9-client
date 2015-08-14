@@ -111,3 +111,29 @@ $done-text-color: #38CF9D;
   position: relative;
   margin: 0;
 }
+
+.doing-from-thing.ui-draggable {
+  &.converging {
+    transition: left 200ms ease-out;
+  }
+
+  .knob {
+    height: 60px;
+    width: 220px;
+    box-sizing: border-box;
+    padding: 6px;
+    border: solid 2px $do-border-color;
+    border-radius: 10px;
+    background-color: $do-background-color;
+    background-image: none;
+
+    &:hover {
+      background-color: $do-background-color;
+    }
+  }
+
+  input[type="text"] {
+    font-size: 12px;
+    color: $do-text-color;
+  }
+}

@@ -6,7 +6,18 @@ module.exports = {
   props: ['thing'],
 
   ready: function() {
+    var $el = $(this.$el)
+
     this.$$.thingInput.focus()
+
+    $el.draggable({
+      helper: 'clone',
+      revert: 'invalid',
+      revertDuration: 300,
+      start: (event, ui) => {
+        ui.helper.data('thing', this.thing)
+      }
+    })
   },
 
   methods: {
@@ -16,9 +27,6 @@ module.exports = {
           // TODO : backspace時に文字列がなければthingを削除
         }
       }
-    },
-    onClickMoveThing: function() {
-
     }
   }
 };
