@@ -3,13 +3,20 @@
 'use strict';
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
+import Easymock from 'easymock';
 import bs from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
 import webpack from 'webpack-stream';
 import fs from 'fs-extra';
+import url from 'url';
+import proxy from 'proxy-middleware';
+
+import mockConfig from './easymock/config';
+mockConfig.path = __dirname + '/easymock';
 
 const $ = gulpLoadPlugins();
+const mock = new Easymock.MockServer(mockConfig);
 
 gulp.task('styles', () => {
   return gulp.src('app/main.scss')
@@ -91,9 +98,16 @@ gulp.task('inject', ['styles', 'scripts'], () => {
     .pipe(bs.stream({once: true}));
 });
 
+gulp.task('mock', () => {
+  mock.start();
+});
+
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['inject', 'fonts'], () => {
+gulp.task('serve', ['inject', 'fonts', 'mock'], () => {
+  var proxyOptions = url.parse('http://localhost:3000/');
+  proxyOptions.route = '/api/v1';
+
   bs({
     notify: false,
     port: 9000,
@@ -101,7 +115,8 @@ gulp.task('serve', ['inject', 'fonts'], () => {
       baseDir: ['.tmp', 'app'],
       routes: {
         '/bower_components': 'bower_components'
-      }
+      },
+      middleware: [proxy(proxyOptions)]
     }
   });
 

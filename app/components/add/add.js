@@ -4,9 +4,7 @@ require('./add.scss');
 
 module.exports = {
   template: require('./add.html'),
-  props: {
-    resource: Object
-  },
+  props: ['resource'],
 
   ready: function() {
     var _this = this;

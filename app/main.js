@@ -1,9 +1,11 @@
 'use strict';
 
-var Vue = require('vue');
-var route = require('vue-route');
+import Vue from 'vue';
+import route from 'vue-route';
+import resource from 'vue-resource';
 
 Vue.use(route);
+Vue.use(resource);
 
 var root = new Vue({
   el: '#app',

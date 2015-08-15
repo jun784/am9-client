@@ -1,0 +1,43 @@
+{
+  "id": 1,
+  "name": "Test Resource",
+  "fbId": "",
+  "doings": [
+    {
+      "id": 1,
+      "body": "Having breakfast",
+      "startedAt": "#{date}T08:30+09:00",
+      "endedAt": "#{date}T09:30+09:00"
+    },
+    {
+      "id": 2,
+      "body": "Relaxing",
+      "startedAt": "#{date}T11:00+09:00",
+      "endedAt": "#{date}T11:30+09:00"
+    },
+    {
+      "id": 3,
+      "body": "Lunch with Fred",
+      "startedAt": "#{date}T12:00+09:00",
+      "endedAt": "#{date}T13:00+09:00"
+    },
+    {
+      "id": 4,
+      "body": "Coding AM9",
+      "startedAt": "#{date}T13:15+09:00",
+      "endedAt": "#{date}T16:15+09:00"
+    },
+    {
+      "id": 5,
+      "body": "Reading the book of JavaScript specification",
+      "startedAt": "#{date}T16:30+09:00",
+      "endedAt": "#{date}T17:30+09:00"
+    },
+    {
+      "id": 6,
+      "body": "Listening to music",
+      "startedAt": "#{date}T17:45+09:00",
+      "endedAt": "#{date}T19:15+09:00"
+    }
+  ]
+}

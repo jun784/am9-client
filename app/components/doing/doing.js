@@ -4,7 +4,18 @@ require('./doing.scss');
 
 module.exports = {
   template: require('./doing.html'),
+  data: function() {
+    return {
+      start: 0,
+      time: 0
+    };
+  },
   replace: true,
+
+  created: function() {
+    this.start = Date.parse(this.startedAt);
+    this.time = Date.parse(this.endedAt) - this.start;
+  },
 
   ready: function() {
     var isDoing = false;
