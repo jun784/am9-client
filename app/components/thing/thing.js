@@ -18,6 +18,8 @@ module.exports = {
         ui.helper.data('thing', this.thing)
       }
     })
+
+    $el = null
   },
 
   methods: {
@@ -27,6 +29,10 @@ module.exports = {
           // TODO : backspace時に文字列がなければthingを削除
         }
       }
+    },
+
+    onInputBody: function(e) {
+      this.$dispatch('thing-updated', this.thing)
     }
   }
 };

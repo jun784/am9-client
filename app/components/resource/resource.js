@@ -45,6 +45,7 @@ module.exports = {
           var start = this.$parent.start + (pos.top / this.$parent.height) * this.$parent.time;
 
           this.doings.push({
+            thingId: thing.id,
             body: thing.body,
             startedAt: new Date(start),
             endedAt: new Date(start + this.$parent.step * 2)
