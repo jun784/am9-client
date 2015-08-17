@@ -1,4 +1,4 @@
-/* jshint node: true */
+/* jshint node: true, globals: false */
 // generated on 2015-06-27 using generator-gulp-webapp 1.0.2
 'use strict';
 import gulp from 'gulp';
