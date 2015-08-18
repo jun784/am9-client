@@ -8,6 +8,7 @@ module.exports = {
     root: ['bower_components'],
     extensions: ['', '.js']
   },
+  devtool: 'source-map',
   plugins: [
     new webpack.ResolverPlugin(
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('package.json', ['main'])
