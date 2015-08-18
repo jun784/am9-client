@@ -6,11 +6,9 @@ module.exports = {
   props: ['thing'],
 
   ready: function() {
-    var $el = $(this.$el)
-
     this.$$.thingInput.focus()
 
-    $el.draggable({
+    $(this.$el).draggable({
       helper: 'clone',
       revert: 'invalid',
       revertDuration: 300,
@@ -18,8 +16,6 @@ module.exports = {
         ui.helper.data('thing', this.thing)
       }
     })
-
-    $el = null
   },
 
   methods: {
