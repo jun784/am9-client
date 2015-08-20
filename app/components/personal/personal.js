@@ -20,10 +20,14 @@ module.exports = {
       this.$broadcast('doing-added', idx);
     });
 
+    this.$on('thing-updated', (thing) => {
+      this.$broadcast('thing-updated', thing);
+    });
+
     var today = this.todayStr();
 
     this._resource = this.$resource('/api/v1/resources/:id');
-    this._resource.get({ id: 1, date: this.todayStr() }, (resource) => {
+    this._resource.get({ id: 1, date: today }, (resource) => {
       this.resources = [resource];
     });
 

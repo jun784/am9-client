@@ -7,6 +7,15 @@ module.exports = {
 
   ready: function() {
     this.$$.thingInput.focus()
+
+    $(this.$el).draggable({
+      helper: 'clone',
+      revert: 'invalid',
+      revertDuration: 300,
+      start: (event, ui) => {
+        ui.helper.data('thing', this.thing)
+      }
+    })
   },
 
   methods: {
@@ -17,8 +26,9 @@ module.exports = {
         }
       }
     },
-    onClickMoveThing: function() {
 
+    onInputBody: function(e) {
+      this.$dispatch('thing-updated', this.thing)
     }
   }
 };
