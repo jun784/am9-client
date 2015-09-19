@@ -1,6 +1,7 @@
 'use strict';
 
 import Vue from 'vue';
+import moment from 'moment';
 
 require('./resource.scss');
 
@@ -47,8 +48,8 @@ module.exports = {
           this.doings.push({
             thingId: thing.id,
             body: thing.body,
-            startedAt: new Date(start),
-            endedAt: new Date(start + this.$parent.step * 2)
+            startedAt: moment(start).format('YYYY-MM-DDTHH:mmZ'),
+            endedAt: moment(start + this.$parent.step * 2).format('YYYY-MM-DDTHH:mmZ')
           });
 
           this.$emit('doing-added', this.doings.length - 1);

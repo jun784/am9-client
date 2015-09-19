@@ -1,5 +1,7 @@
 'use strict';
 
+import moment from 'moment';
+
 require('./timeline.scss');
 
 module.exports = {
@@ -13,21 +15,14 @@ module.exports = {
   },
 
   created: function() {
-    this.start = (function(now) {
-      now.setHours(0);
-      now.setMinutes(0);
-      now.setSeconds(0);
-      now.setMilliseconds(0);
-      return now.getTime();
-    })(new Date());
-
+    this.start = moment().startOf('day').valueOf();
     this.time = 1000 * 60 * 60 * 24;
     this.step = 1000 * 60 * 15;
     this.stepLength = 30;
-    this.currentTime = Date.now();
+    this.currentTime = moment().valueOf();
 
     setInterval(() => {
-      this.currentTime = Date.now();
+      this.currentTime = moment().valueOf();
     }, 60000);
   },
 
