@@ -1,5 +1,7 @@
 'use strict';
 
+import uuid from 'node-uuid';
+
 require('./things.scss');
 
 import thing from '../thing/thing';
@@ -26,8 +28,7 @@ module.exports = {
       // this.things.push({id: Math.random(100), title: title });
     },
     onClickAddThing: function(title) {
-      // console.log(this.things);
-      this.things.push({id: Math.random(100), body: ""});
+      this.things.push({ id: uuid.v4(), body: '' });
     }
   },
 

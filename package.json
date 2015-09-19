@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "moment": "^2.10.6",
+    "node-uuid": "^1.4.3",
     "vue": "^0.12.7",
     "vue-resource": "^0.1.10",
     "vue-route": "^1.5.0"

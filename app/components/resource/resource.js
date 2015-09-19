@@ -2,6 +2,7 @@
 
 import Vue from 'vue';
 import moment from 'moment';
+import uuid from 'node-uuid';
 
 require('./resource.scss');
 
@@ -46,6 +47,7 @@ module.exports = {
           var start = this.$parent.start + (pos.top / this.$parent.height) * this.$parent.time;
 
           this.doings.push({
+            id: uuid.v4(),
             thingId: thing.id,
             body: thing.body,
             startedAt: moment(start).format('YYYY-MM-DDTHH:mmZ'),
