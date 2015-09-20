@@ -13,6 +13,7 @@ module.exports = {
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('package.json', ['main'])
     )
   ],
+  devtool: 'source-map',
   module: {
     loaders: [
       {test: /\.html$/, loader: 'html-loader'},
