@@ -44,19 +44,15 @@ ul.things {
 }
 
 .thing {
-  height: 72px;
   position: relative;
   width: 100%;
 
   .knob {
+    position: relative;
     transition: 0.2s linear;
     content: "";
     cursor: pointer;
-    position: absolute;
-    top: 0;
-    height: 24px;
-    right: 2px;
-    left: 10px;
+    margin: 0 5px;
     padding: 24px 0 24px 70px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     background-image: url("/images/knob.png");
@@ -69,9 +65,8 @@ ul.things {
     background-color: rgba(0,0,0,0.04);
   }
 
-  input[type="text"] {
-    width: 100%;
-    bottom: 0px;
+  .input {
+    min-height: 1em;
     color: #666;
     font-size: 16px;
     font-weight: 100;
@@ -79,5 +74,20 @@ ul.things {
     border: none;
     outline: none;
     background-color: transparent;
+    cursor: text;
+
+    &.cover {
+      position: absolute;
+      top: 24px;
+      right: 0;
+      left: 70px;
+      bottom: 24px;
+      color: transparent;
+    }
+
+    .time {
+      border-bottom: 1px solid #077bc5;
+      color: #077bc5;
+    }
   }
 }

@@ -126,7 +126,7 @@ gulp.task('serve', ['inject', 'fonts', 'mock'], () => {
   ]).on('change', bs.reload);
 
   gulp.watch('app/*.html', ['inject']);
-  gulp.watch(['app/components/**/*', 'app/main.scss', 'app/main.js'], ['inject']);
+  gulp.watch(['app/plugins/**/*', 'app/components/**/*', 'app/main.scss', 'app/main.js'], ['inject']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });

@@ -20,6 +20,28 @@ module.exports = {
         this.resolveConflict(this.$.doing[idx]);
       });
     });
+
+    this.$on('thing-time-set', (thing, start, end) => {
+      for (let i = 0, ii = this.doings.length; i < ii; i++) {
+        if (this.doings[i].thingId === thing.id) {
+          let doing = this.doings[i];
+          doing.start = start.valueOf();
+          doing.time = end.valueOf() - doing.start;
+
+          this.resolveConflict(this.$.doing[i]);
+          this.$dispatch('doing-updated', doing);
+          return;
+        }
+      }
+
+      this.doings.push({
+        id: uuid.v4(),
+        thingId: thing.id,
+        body: thing.body,
+        startedAt: start.format('YYYY-MM-DDTHH:mmZ'),
+        endedAt: end.format('YYYY-MM-DDTHH:mmZ')
+      });
+    });
   },
 
   ready: function() {

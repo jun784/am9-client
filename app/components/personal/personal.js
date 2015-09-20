@@ -21,8 +21,16 @@ module.exports = {
       this.$broadcast('doing-added', idx);
     });
 
+    this.$on('doing-updated', (doing) => {
+      this.$broadcast('doing-updated', doing);
+    });
+
     this.$on('thing-updated', (thing) => {
       this.$broadcast('thing-updated', thing);
+    });
+
+    this.$on('thing-time-set', (thing, start, end) => {
+      this.$broadcast('thing-time-set', thing, start, end);
     });
 
     var today = moment().format('YYYY-MM-DD');
@@ -35,6 +43,19 @@ module.exports = {
     this._thing = this.$resource('/api/v1/things');
     this._thing.get({ date: today }, (things) => {
       this.things = things;
+    });
+
+    var thingSender = this.$sender(this._thing);
+    this.$on('thing-added', (thing) => {
+      thingSender.add('add', thing);
+    });
+
+    this.$on('thing-updated', (thing) => {
+      thingSender.add('update', thing);
+    });
+
+    this.$on('thing-removed', (thing) => {
+      thingSender.add('remove', thing);
     });
   },
 

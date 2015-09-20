@@ -1,5 +1,6 @@
 <li class="thing">
   <div class="knob">
-    <input type="text" v-class="done: thing.done" v-model="thing.body" v-el="thingInput" v-on="keydown: onKeyDown($event), input: onInputBody($event)">
+    <div class="input" v-class="done: thing.done" v-el="thingHtml"></div>
+    <div class="input cover" contenteditable v-text="thing.body" v-el="thingInput" v-on="keydown: onKeyDown($event), input: onInputBody($event)"></div>
   </div>
 </li>

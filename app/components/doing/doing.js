@@ -37,6 +37,7 @@ module.exports = {
         stop: (event, ui) => {
           this.top = ui.position.top;
           this.$parent.resolveConflict(this);
+          this.$dispatch('doing-updated', this);
         }
       })
       .resizable({
@@ -60,6 +61,7 @@ module.exports = {
           this.height = parseInt(ui.element.css('height'));
           this.top = ui.position.top;
           this.$parent.resolveConflict(this, isDoing);
+          this.$dispatch('doing-updated', this);
         }
       });
   },
