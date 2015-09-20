@@ -24,11 +24,22 @@ module.exports = {
   },
 
   methods: {
-    onClickMoveThing: function() {
-      // this.things.push({id: Math.random(100), title: title });
+    removeThing: function(thing) {
+      var index = this.things.indexOf(thing);
+      this.things.splice(index, 1);
+
+      this.$dispatch('thing-removed', thing);
+
+      // update focus
+      if (this.things.length > 0) {
+        this.$.thing[index - 1].focus();
+      }
     },
+
     onClickAddThing: function(title) {
-      this.things.push({ id: uuid.v4(), body: '' });
+      var thing = { id: uuid.v4(), body: '' };
+      this.things.push(thing);
+      this.$dispatch('thing-added', thing);
     }
   },
 

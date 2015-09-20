@@ -1,5 +1,5 @@
 <li class="thing">
   <div class="knob">
-    <input type="text" v-class="done: thing.done" v-model="thing.body" v-el="thingInput" v-on="keyup: stateCheck($event), input: onInputBody($event)">
+    <input type="text" v-class="done: thing.done" v-model="thing.body" v-el="thingInput" v-on="keydown: onKeyDown($event), input: onInputBody($event)">
   </div>
 </li>

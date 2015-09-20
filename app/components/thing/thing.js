@@ -3,10 +3,16 @@
 module.exports = {
   template: require('./thing.html'),
   replace: true,
+  data: function() {
+    return {
+      isEmpty: false
+    }
+  },
   props: ['thing'],
 
   ready: function() {
-    this.$$.thingInput.focus()
+    this.isEmpty = this.thing.body == '';
+    this.focus()
 
     $(this.$el).draggable({
       helper: 'clone',
@@ -19,15 +25,20 @@ module.exports = {
   },
 
   methods: {
-    stateCheck: function(e) {
-      if (e.keyCode == 8) {
-        if (this.$$.thingInput.value == "") {
-          // TODO : backspace時に文字列がなければthingを削除
-        }
+    focus: function() {
+      this.$$.thingInput.focus()
+    },
+
+    onKeyDown: function(e) {
+      var which = e.which || e.keyCode;
+      if (this.isEmpty && which == 8) { // backspace
+        e.preventDefault()
+        this.$parent.removeThing(this.thing)
       }
     },
 
     onInputBody: function(e) {
+      this.isEmpty = this.thing.body == '';
       this.$dispatch('thing-updated', this.thing)
     }
   }
