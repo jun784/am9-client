@@ -2,6 +2,7 @@
 'use strict';
 
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: ['./app/main.js'],
@@ -20,8 +21,11 @@ module.exports = {
   module: {
     loaders: [
       {test: /\.html$/, loader: 'html-loader'},
-      {test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
+      {test: /\.scss$/, loader: 'style!css!postcss!sass?sourceMap'},
       {test: /\.js$/, loader: 'babel-loader'}
     ]
+  },
+  postcss: function() {
+    return [autoprefixer];
   }
 };
