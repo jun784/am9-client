@@ -19,10 +19,11 @@ module.exports = {
 
   ready: function() {
     var isDoing = false;
-    
+
     $(this.$el)
       .draggable({
         axis: 'y',
+        cancel: '.done,.doing',
         containment: '.doing-wrapper',
         stack: '.doing-item',
         drag: (event, ui) => {
@@ -35,6 +36,7 @@ module.exports = {
       })
       .resizable({
         handles: 'n, s',
+        cancel: '.done',
         start: (event, ui) => {
           isDoing = this.isDoing;
           if (isDoing) {

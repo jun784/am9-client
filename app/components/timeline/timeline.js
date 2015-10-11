@@ -10,17 +10,21 @@ module.exports = {
     resources: Array
   },
 
+  data: function() {
+    return {
+      start: moment().startOf('day').valueOf(),
+      time: 1000 * 60 * 60 * 24,
+      step: 1000 * 60 * 15,
+      stepLength: 30,
+      currentTime: moment().valueOf()
+    };
+  },
+
   components: {
     resource: require('../resource/resource')
   },
 
   created: function() {
-    this.start = moment().startOf('day').valueOf();
-    this.time = 1000 * 60 * 60 * 24;
-    this.step = 1000 * 60 * 15;
-    this.stepLength = 30;
-    this.currentTime = moment().valueOf();
-
     setInterval(() => {
       this.currentTime = moment().valueOf();
     }, 60000);

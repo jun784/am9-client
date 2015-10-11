@@ -84,7 +84,7 @@ module.exports = {
 
     resolveConflict: function(target, fixed) {
       var i, ii, fixedStart, startIdx, cur, next, doingList;
-      var margin = 1000 * 60 * 5;
+      var margin = 1000;
 
       // sort doings based on the center position
       doingList = this.$.doing;

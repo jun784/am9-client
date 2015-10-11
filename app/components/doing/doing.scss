@@ -54,6 +54,11 @@ $done-text-color: #38CF9D;
     box-shadow: rgba(0, 0, 0, 0.1) -2px 0px 10px;
   }
 
+  &.doing,
+  &.done {
+    cursor: pointer;
+  }
+
   &.doing .doing-item-inner {
     border-color: $done-text-color;
     color: $done-text-color;
@@ -78,6 +83,11 @@ $done-text-color: #38CF9D;
     cursor: ns-resize;
   }
 
+  &.doing .ui-resizable-n,
+  &.done .ui-resizable-n,
+  &.done .ui-resizable-s {
+    visibility: hidden;
+  }
 }
 
 .doing-item-inner {
