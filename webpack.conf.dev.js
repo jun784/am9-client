@@ -17,6 +17,9 @@ module.exports = {
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('package.json', ['main'])
     )
   ],
+  cache: true,
+  debug: true,
+  devtool: 'eval-source-map',
   module: {
     loaders: [
       {test: /\.html$/, loader: 'html-loader'},

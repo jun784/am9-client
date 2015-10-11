@@ -7,7 +7,7 @@ import Easymock from 'easymock';
 import bs from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
-import webpack from 'webpack-stream';
+import webpack from 'webpack';
 import fs from 'fs-extra';
 import url from 'url';
 import proxy from 'proxy-middleware';
@@ -33,14 +33,23 @@ gulp.task('styles', () => {
     .pipe(bs.stream());
 });
 
-gulp.task('scripts', () => {
-  return gulp.src(['app/main.js'])
-    .pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe(webpack(require('./webpack.conf.js')))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp'))
-    .pipe(bs.stream());
+gulp.task('scripts', (done) => {
+  webpack(require('./webpack.conf.js'), done);
+});
+
+gulp.task('scripts:dev', (done) => {
+  var compiler = webpack(require('./webpack.conf.dev.js'));
+
+  compiler.watch(200, (err, stats) => {
+    if (err) throw err;
+
+    bs.reload();
+
+    if (done) {
+      done();
+      done = null;
+    }
+  });
 });
 
 gulp.task('html', ['inject'], () => {
@@ -89,7 +98,7 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('inject', ['styles', 'scripts'], () => {
+gulp.task('inject', () => {
   return gulp.src('app/*.html')
     .pipe($.inject(
       gulp.src(['.tmp/main.js', '.tmp/main.css'], { read: false }),
@@ -104,7 +113,7 @@ gulp.task('mock', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['inject', 'fonts', 'mock'], () => {
+gulp.task('serve', ['styles', 'scripts:dev', 'inject', 'fonts', 'mock'], () => {
   var proxyOptions = url.parse('http://localhost:3000/');
   proxyOptions.route = '/api/v1';
 
@@ -126,7 +135,6 @@ gulp.task('serve', ['inject', 'fonts', 'mock'], () => {
   ]).on('change', bs.reload);
 
   gulp.watch('app/*.html', ['inject']);
-  gulp.watch(['app/components/**/*', 'app/main.scss', 'app/main.js'], ['inject']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
