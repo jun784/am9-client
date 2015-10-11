@@ -4,6 +4,8 @@ import Vue from 'vue';
 import route from 'vue-route';
 import resource from 'vue-resource';
 
+require('./main.scss');
+
 Vue.use(route);
 Vue.use(resource);
 
