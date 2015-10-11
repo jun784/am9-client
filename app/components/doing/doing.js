@@ -19,13 +19,7 @@ module.exports = {
 
   ready: function() {
     var isDoing = false;
-
-    this.$on('thing-updated', (thing) => {
-      if (thing.id === this.thingId) {
-        this.body = thing.body;
-      }
-    });
-
+    
     $(this.$el)
       .draggable({
         axis: 'y',
