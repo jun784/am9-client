@@ -6,13 +6,14 @@ require('./timeline.scss');
 
 module.exports = {
   template: require('./timeline.html'),
-  props: {
-    resources: Array
-  },
+  props: [
+    'resources',
+    'date'
+  ],
 
   data: function() {
     return {
-      start: moment().startOf('day').valueOf(),
+      start: this.date.valueOf(),
       time: 1000 * 60 * 60 * 24,
       step: 1000 * 60 * 15,
       stepLength: 30,
@@ -37,6 +38,13 @@ module.exports = {
   },
 
   computed: {
+    date: {
+      set: function(val) {
+        this.start = this.date.valueOf();
+        this.date = val;
+      }
+    },
+
     height: function() {
       return this.time / this.step * this.stepLength;
     },

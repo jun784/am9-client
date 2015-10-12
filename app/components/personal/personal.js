@@ -3,6 +3,7 @@
 import timeline from '../timeline/timeline';
 import add from '../add/add';
 import things from '../things/things';
+import momentFilter from '../../filters/moment';
 import moment from 'moment';
 import _ from 'lodash';
 
@@ -12,6 +13,7 @@ module.exports = {
   template: require('./personal.html'),
   data: function() {
     return {
+      date: moment().startOf('day'),
       resources: [],
       things: []
     };
@@ -36,18 +38,21 @@ module.exports = {
         .value();
     });
 
-    var today = moment().format('YYYY-MM-DD');
+    var dateString = this.date.format('YYYY-MM-DD');
 
     this._resource = this.$resource('/api/v1/resources/:id');
-    this._resource.get({ id: 1, date: today }, (resource) => {
+    this._resource.get({ id: 1, date: dateString }, (resource) => {
       this.resources = [resource];
     });
 
     this._thing = this.$resource('/api/v1/things');
-    this._thing.get({ date: today }, (things) => {
+    this._thing.get({ date: dateString }, (things) => {
       this.things = things;
     });
   },
 
-  components: { timeline, add, things }
+  components: { timeline, add, things },
+  filters: {
+    moment: momentFilter
+  }
 };
