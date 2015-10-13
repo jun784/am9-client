@@ -11,6 +11,7 @@ import fs from 'fs-extra';
 import url from 'url';
 import proxy from 'proxy-middleware';
 import mainBowerFiles from 'main-bower-files';
+import historyApiFallback from 'connect-history-api-fallback';
 
 import mockConfig from './easymock/config';
 mockConfig.path = __dirname + '/easymock';
@@ -101,7 +102,7 @@ gulp.task('serve', ['webpack:dev', 'fonts', 'mock'], () => {
       routes: {
         '/bower_components': 'bower_components'
       },
-      middleware: [proxy(proxyOptions)]
+      middleware: [proxy(proxyOptions), historyApiFallback()]
     }
   });
 
@@ -113,33 +114,6 @@ gulp.task('serve', ['webpack:dev', 'fonts', 'mock'], () => {
   gulp.watch('app/*.html', bs.reload);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json', ['fonts']);
-});
-
-gulp.task('serve:dist', () => {
-  bs({
-    notify: false,
-    port: 9000,
-    server: {
-      baseDir: ['dist']
-    }
-  });
-});
-
-gulp.task('serve:test', () => {
-  bs({
-    notify: false,
-    port: 9000,
-    ui: false,
-    server: {
-      baseDir: 'test',
-      routes: {
-        '/bower_components': 'bower_components'
-      }
-    }
-  });
-
-  gulp.watch('test/spec/**/*.js').on('change', bs.reload);
-  gulp.watch('test/spec/**/*.js', ['lint:test']);
 });
 
 gulp.task('build', ['webpack', 'html', 'images', 'fonts', 'extras'], () => {

@@ -1,29 +1,34 @@
 'use strict';
 
 import Vue from 'vue';
-import route from 'vue-route';
+import VueRouter from 'vue-router';
 import resource from 'vue-resource';
 
 require('./main.scss');
 
-Vue.use(route);
+Vue.use(VueRouter);
 Vue.use(resource);
 
-var root = new Vue({
-  el: '#app',
+var App = Vue.extend({});
 
-  routes: {
-    '/personal': {
-      componentId: 'personal',
-      isDefault: true
-    },
+var router = new VueRouter({
+  hashbang: false,
+  history: true,
+  saveScrollPosition: true
+});
 
-    options: {
-      hashbang: true
-    }
-  },
-
-  components: {
-    personal: require('./components/personal/personal')
+router.map({
+  '/personal': {
+    component: require('./components/personal/personal'),
   }
 });
+
+router.redirect({
+  '/index.html': '/'
+});
+
+router.alias({
+  '/': '/personal'
+});
+
+router.start(App, '#app');
