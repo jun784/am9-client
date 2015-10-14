@@ -9,6 +9,9 @@ require('./main.scss');
 
 Vue.use(VueRouter);
 Vue.use(resource);
+
+Vue.http.options.root = '/api/v1';
+
 Vue.use(auth);
 
 var App = Vue.extend({});

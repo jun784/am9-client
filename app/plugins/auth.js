@@ -35,7 +35,7 @@ exports.install = function(Vue, options) {
   if (code) {
     // ensure that the user was redirected from facebook login with code
     Vue.http({
-      url: '/api/v1/auth/facebook',
+      url: 'auth/facebook',
       method: 'POST',
       data: {
         clientId: APP_ID,

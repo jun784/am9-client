@@ -40,12 +40,12 @@ module.exports = {
 
     var dateString = this.date.format('YYYY-MM-DD');
 
-    this._resource = this.$resource('/api/v1/resources/:id');
+    this._resource = this.$resource('resources/:id');
     this._resource.get({ id: 1, date: dateString }, (resource) => {
       this.resources = [resource];
     });
 
-    this._thing = this.$resource('/api/v1/things');
+    this._thing = this.$resource('things');
     this._thing.get({ date: dateString }, (things) => {
       this.things = things;
     });
