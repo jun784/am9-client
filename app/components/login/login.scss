@@ -10,12 +10,21 @@
 
 .login-heading {
   position: absolute;
-  top: 30%;
+  top: 25%;
   width: 100%;
   font-size: 3.75rem;
   color: #ffffff;
   text-align: center;
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+.login-clock {
+  position: absolute;
+  top: 50%;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transform: translateY(-50%);
 }
 
 .login-button-wrapper {
@@ -33,6 +42,12 @@
   border-radius: 6px;
   font-size: 0.75rem;
   line-height: 16px;
+  cursor: pointer;
+  transition: opacity 90ms;
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .login-button-facebook {

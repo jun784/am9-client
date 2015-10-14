@@ -1,6 +1,7 @@
 'use strict';
 
 import Vue from 'vue';
+import clock from '../clock/clock';
 
 require('./login.scss');
 
@@ -11,5 +12,7 @@ module.exports = {
     onClickFacebook: function() {
       Vue.auth.login();
     }
-  }
+  },
+
+  components: { clock }
 };
