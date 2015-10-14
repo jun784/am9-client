@@ -14,8 +14,9 @@ module.exports = {
     this.isEmpty = this.thing.body == '';
     this.focus()
 
-    $(this.$el).draggable({
+    $(this.$$.thing).draggable({
       helper: 'clone',
+      appendTo: this.$root.$el,
       revert: 'invalid',
       revertDuration: 300,
       start: (event, ui) => {
