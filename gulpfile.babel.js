@@ -41,7 +41,7 @@ gulp.task('webpack:dev', (done) => {
 gulp.task('html', () => {
   const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
 
-  return gulp.src('.tmp/*.html')
+  return gulp.src('app/*.html')
     .pipe(assets)
     .pipe($.if(['*.js', '!app/**/*.js'], $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
@@ -73,15 +73,6 @@ gulp.task('fonts', () => {
   }).concat('app/fonts/**/*'))
     .pipe(gulp.dest('.tmp/fonts'))
     .pipe(gulp.dest('dist/fonts'));
-});
-
-gulp.task('extras', () => {
-  return gulp.src([
-    'app/*.*',
-    '!app/*.html'
-  ], {
-    dot: true
-  }).pipe(gulp.dest('dist'));
 });
 
 gulp.task('mock', () => {
@@ -116,7 +107,7 @@ gulp.task('serve', ['webpack:dev', 'fonts', 'mock'], () => {
   gulp.watch('bower.json', ['fonts']);
 });
 
-gulp.task('build', ['webpack', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['webpack', 'html', 'images', 'fonts'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
