@@ -7,12 +7,14 @@ exports.install = function(Vue, options) {
   var location = window.location;
   var localStorage = window.localStorage;
 
+  const REDIRECT_URI = location.origin || `${location.protocol}//${location.host}`;
+
   function isLogin() {
     return !!localStorage.getItem('token');
   }
 
   function login() {
-    location.href = `https://www.facebook.com/dialog/oauth?client_id=${APP_ID}&redirect_uri=${location.href}`;
+    location.href = `https://www.facebook.com/dialog/oauth?client_id=${APP_ID}&redirect_uri=${REDIRECT_URI}`;
   }
 
   function logout() {
@@ -40,7 +42,7 @@ exports.install = function(Vue, options) {
       data: {
         clientId: APP_ID,
         code: code,
-        redirectUri: location.href
+        redirectUri: REDIRECT_URI
       }
     }).then(function(res) {
       localStorage.setItem('token', res.data.token);
