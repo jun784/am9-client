@@ -13,16 +13,18 @@ module.exports = {
     root: ['bower_components'],
     extensions: ['', '.js']
   },
-  devtool: 'source-map',
   plugins: [
     new webpack.ResolverPlugin(
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('package.json', ['main'])
     )
   ],
+  cache: true,
+  debug: true,
+  devtool: 'eval-source-map',
   module: {
     loaders: [
       {test: /\.html$/, loader: 'html-loader'},
-      {test: /\.scss$/, loader: 'style!css!postcss!sass'},
+      {test: /\.scss$/, loader: 'style!css!postcss!sass?sourceMap'},
       {test: /\.js$/, loader: 'babel-loader'}
     ]
   },

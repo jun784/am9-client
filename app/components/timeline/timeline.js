@@ -1,11 +1,24 @@
 'use strict';
 
+import moment from 'moment';
+
 require('./timeline.scss');
 
 module.exports = {
   template: require('./timeline.html'),
-  props: {
-    resources: Array
+  props: [
+    'resources',
+    'date'
+  ],
+
+  data: function() {
+    return {
+      start: this.date.valueOf(),
+      time: 1000 * 60 * 60 * 24,
+      step: 1000 * 60 * 15,
+      stepLength: 30,
+      currentTime: moment().valueOf()
+    };
   },
 
   components: {
@@ -13,21 +26,8 @@ module.exports = {
   },
 
   created: function() {
-    this.start = (function(now) {
-      now.setHours(0);
-      now.setMinutes(0);
-      now.setSeconds(0);
-      now.setMilliseconds(0);
-      return now.getTime();
-    })(new Date());
-
-    this.time = 1000 * 60 * 60 * 24;
-    this.step = 1000 * 60 * 15;
-    this.stepLength = 30;
-    this.currentTime = Date.now();
-
     setInterval(() => {
-      this.currentTime = Date.now();
+      this.currentTime = moment().valueOf();
     }, 60000);
   },
 
@@ -38,6 +38,13 @@ module.exports = {
   },
 
   computed: {
+    date: {
+      set: function(val) {
+        this.start = this.date.valueOf();
+        this.date = val;
+      }
+    },
+
     height: function() {
       return this.time / this.step * this.stepLength;
     },

@@ -14,20 +14,14 @@
     <link rel="stylesheet" href="/bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
     <!-- endbower -->
     <!-- endbuild -->
-
-    <!-- build:css styles/main.css -->
-    <!-- inject:css -->
-    <!-- endinject -->
-    <!-- endbuild -->
-
   </head>
   <body>
     <!--[if lt IE 10]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <p class="browserupgrade">You are using an <em>outdated</em> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <main id="app">
-      <div v-route></div>
+      <router-view></router-view>
     </main>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
@@ -48,8 +42,7 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
-    <!-- inject:js -->
-    <!-- endinject -->
+    <script src="main.js"></script>
     <!-- endbuild -->
   </body>
 </html>

@@ -20,15 +20,10 @@ module.exports = {
   ready: function() {
     var isDoing = false;
 
-    this.$on('thing-updated', (thing) => {
-      if (thing.id === this.thingId) {
-        this.body = thing.body;
-      }
-    });
-
     $(this.$el)
       .draggable({
         axis: 'y',
+        cancel: '.done,.doing',
         containment: '.doing-wrapper',
         stack: '.doing-item',
         drag: (event, ui) => {
@@ -41,6 +36,7 @@ module.exports = {
       })
       .resizable({
         handles: 'n, s',
+        cancel: '.done',
         start: (event, ui) => {
           isDoing = this.isDoing;
           if (isDoing) {

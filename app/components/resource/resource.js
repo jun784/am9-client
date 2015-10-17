@@ -1,6 +1,8 @@
 'use strict';
 
 import Vue from 'vue';
+import moment from 'moment';
+import uuid from 'node-uuid';
 
 require('./resource.scss');
 
@@ -45,10 +47,11 @@ module.exports = {
           var start = this.$parent.start + (pos.top / this.$parent.height) * this.$parent.time;
 
           this.doings.push({
+            id: uuid.v4(),
             thingId: thing.id,
             body: thing.body,
-            startedAt: new Date(start),
-            endedAt: new Date(start + this.$parent.step * 2)
+            startedAt: moment(start).format('YYYY-MM-DDTHH:mmZ'),
+            endedAt: moment(start + this.$parent.step * 2).format('YYYY-MM-DDTHH:mmZ')
           });
 
           this.$emit('doing-added', this.doings.length - 1);
@@ -81,7 +84,7 @@ module.exports = {
 
     resolveConflict: function(target, fixed) {
       var i, ii, fixedStart, startIdx, cur, next, doingList;
-      var margin = 1000 * 60 * 5;
+      var margin = 1000;
 
       // sort doings based on the center position
       doingList = this.$.doing;

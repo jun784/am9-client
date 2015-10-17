@@ -1,11 +1,10 @@
 <div class="timeline-wrapper">
-  <timeline resources="{{ resources }}"></timeline>
-  <add resource="{{ resources[0] }}"></add>
+  <timeline resources="{{ resources }}" date="{{ date }}"></timeline>
 </div>
 
 <section class="things-wrapper">
   <header>
-    <h1>Today</h1>
+    <h1 v-text="date | moment 'YYYY-MM-DD'"></h1>
   </header>
   <things things="{{ things }}"></things>
 </section>

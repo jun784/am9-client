@@ -24,8 +24,7 @@ $done-text-color: #38CF9D;
   right: 0px;
   padding: 10px;
   box-sizing: border-box;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
+  cursor: grab;
   transition: 400ms cubic-bezier(0.35, 1.22, 0.93, 1.01);
 
 
@@ -42,8 +41,7 @@ $done-text-color: #38CF9D;
   }
 
   &.ui-draggable-dragging, &.ui-resizable-resizing {
-    cursor: -moz-grabbing;
-    cursor: -webkit-grabbing;
+    cursor: grabbing;
     transition: 0ms;
 
     &:not(.doing-doing-resizing) .doing-background {
@@ -54,6 +52,11 @@ $done-text-color: #38CF9D;
   &:not(.doing).ui-draggable-dragging .doing-item-inner {
     transform: translateX(6px) scale(1.00);
     box-shadow: rgba(0, 0, 0, 0.1) -2px 0px 10px;
+  }
+
+  &.doing,
+  &.done {
+    cursor: pointer;
   }
 
   &.doing .doing-item-inner {
@@ -80,6 +83,11 @@ $done-text-color: #38CF9D;
     cursor: ns-resize;
   }
 
+  &.doing .ui-resizable-n,
+  &.done .ui-resizable-n,
+  &.done .ui-resizable-s {
+    visibility: hidden;
+  }
 }
 
 .doing-item-inner {

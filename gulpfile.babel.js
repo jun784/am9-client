@@ -6,11 +6,12 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import Easymock from 'easymock';
 import bs from 'browser-sync';
 import del from 'del';
-import {stream as wiredep} from 'wiredep';
-import webpack from 'webpack-stream';
+import webpack from 'webpack';
 import fs from 'fs-extra';
 import url from 'url';
 import proxy from 'proxy-middleware';
+import mainBowerFiles from 'main-bower-files';
+import historyApiFallback from 'connect-history-api-fallback';
 
 import mockConfig from './easymock/config';
 mockConfig.path = __dirname + '/easymock';
@@ -18,35 +19,29 @@ mockConfig.path = __dirname + '/easymock';
 const $ = gulpLoadPlugins();
 const mock = new Easymock.MockServer(mockConfig);
 
-gulp.task('styles', () => {
-  return gulp.src('app/main.scss')
-    .pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe($.sass.sync({
-      outputStyle: 'expanded',
-      precision: 10,
-      includePaths: ['.']
-    }).on('error', $.sass.logError))
-    .pipe($.autoprefixer({browsers: ['last 1 version']}))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp'))
-    .pipe(bs.stream());
+gulp.task('webpack', (done) => {
+  webpack(require('./webpack.conf.js'), done);
 });
 
-gulp.task('scripts', () => {
-  return gulp.src(['app/main.js'])
-    .pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe(webpack(require('./webpack.conf.js')))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp'))
-    .pipe(bs.stream());
+gulp.task('webpack:dev', (done) => {
+  var compiler = webpack(require('./webpack.conf.dev.js'));
+
+  compiler.watch(200, (err, stats) => {
+    if (err) throw err;
+
+    bs.reload();
+
+    if (done) {
+      done();
+      done = null;
+    }
+  });
 });
 
-gulp.task('html', ['inject'], () => {
-  const assets = $.useref.assets({searchPath: ['.tmp', 'app', '.']});
+gulp.task('html', ['webpack'], () => {
+  const assets = $.useref.assets({searchPath: ['.tmp', '.']});
 
-  return gulp.src('.tmp/*.html')
+  return gulp.src('app/*.html')
     .pipe(assets)
     .pipe($.if(['*.js', '!app/**/*.js'], $.uglify()))
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
@@ -73,29 +68,11 @@ gulp.task('images', () => {
 });
 
 gulp.task('fonts', () => {
-  return gulp.src(require('main-bower-files')({
+  return gulp.src(mainBowerFiles({
     filter: '**/*.{eot,svg,ttf,woff,woff2}'
   }).concat('app/fonts/**/*'))
     .pipe(gulp.dest('.tmp/fonts'))
     .pipe(gulp.dest('dist/fonts'));
-});
-
-gulp.task('extras', () => {
-  return gulp.src([
-    'app/*.*',
-    '!app/*.html'
-  ], {
-    dot: true
-  }).pipe(gulp.dest('dist'));
-});
-
-gulp.task('inject', ['styles', 'scripts'], () => {
-  return gulp.src('app/*.html')
-    .pipe($.inject(
-      gulp.src(['.tmp/main.js', '.tmp/main.css'], { read: false }),
-      { ignorePath: ['app', '.tmp'], addRootSlash: false }))
-    .pipe(gulp.dest('.tmp'))
-    .pipe(bs.stream({once: true}));
 });
 
 gulp.task('mock', () => {
@@ -104,7 +81,7 @@ gulp.task('mock', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('serve', ['inject', 'fonts', 'mock'], () => {
+gulp.task('serve', ['webpack:dev', 'fonts', 'mock'], () => {
   var proxyOptions = url.parse('http://localhost:3000/');
   proxyOptions.route = '/api/v1';
 
@@ -116,7 +93,7 @@ gulp.task('serve', ['inject', 'fonts', 'mock'], () => {
       routes: {
         '/bower_components': 'bower_components'
       },
-      middleware: [proxy(proxyOptions)]
+      middleware: [proxy(proxyOptions), historyApiFallback()]
     }
   });
 
@@ -125,55 +102,12 @@ gulp.task('serve', ['inject', 'fonts', 'mock'], () => {
     '.tmp/fonts/**/*'
   ]).on('change', bs.reload);
 
-  gulp.watch('app/*.html', ['inject']);
-  gulp.watch(['app/components/**/*', 'app/main.scss', 'app/main.js'], ['inject']);
+  gulp.watch('app/*.html', bs.reload);
   gulp.watch('app/fonts/**/*', ['fonts']);
-  gulp.watch('bower.json', ['wiredep', 'fonts']);
+  gulp.watch('bower.json', ['fonts']);
 });
 
-gulp.task('serve:dist', () => {
-  bs({
-    notify: false,
-    port: 9000,
-    server: {
-      baseDir: ['dist']
-    }
-  });
-});
-
-gulp.task('serve:test', () => {
-  bs({
-    notify: false,
-    port: 9000,
-    ui: false,
-    server: {
-      baseDir: 'test',
-      routes: {
-        '/bower_components': 'bower_components'
-      }
-    }
-  });
-
-  gulp.watch('test/spec/**/*.js').on('change', bs.reload);
-  gulp.watch('test/spec/**/*.js', ['lint:test']);
-});
-
-// inject bower components
-gulp.task('wiredep', () => {
-  gulp.src('app/main.scss')
-    .pipe(wiredep({
-      ignorePath: /^(\.\.\/)+/
-    }))
-    .pipe(gulp.dest('app'));
-
-  gulp.src('app/*.html')
-    .pipe(wiredep({
-      ignorePath: /^(\.\.\/)*\.\./
-    }))
-    .pipe(gulp.dest('app'));
-});
-
-gulp.task('build', ['html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['html', 'images', 'fonts'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
