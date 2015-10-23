@@ -8,11 +8,16 @@ require('./clock.scss');
 module.exports = {
   template: require('./clock.html'),
   data: function() {
+    let now = moment();
+    let secondDeg = now.seconds() * 6;
+    let minuteDeg = now.minutes() * 6 + secondDeg / 60;
+    let hourDeg = ((now.hours() % 12) / 12) * 360 + minuteDeg / 12;
+
     return {
-      datetime: null,
-      secondDeg: 0,
-      minuteDeg: 0,
-      hourDeg: 0
+      datetime: now,
+      secondDeg,
+      minuteDeg,
+      hourDeg
     };
   },
 
@@ -22,11 +27,13 @@ module.exports = {
 
   methods: {
     updateTime: function() {
-      // from moment.js hero clock http://momentjs.com/
-      var now = this.datetime = moment();
-      this.secondDeg = now.seconds() * 6;
-      this.minuteDeg = now.minutes() * 6 + this.secondDeg / 60;
-      this.hourDeg = ((now.hours() % 12) / 12) * 360 + 90 + this.minuteDeg / 12;
+      let now = moment();
+      let delta = now.valueOf() - this.datetime.valueOf();
+      this.datetime = now;
+
+      this.secondDeg += delta * 6 / 1000;
+      this.minuteDeg += delta / 10 / 1000;
+      this.hourDeg += delta / 120 / 1000;
 
       setTimeout(this.updateTime.bind(this), 1000);
     }
